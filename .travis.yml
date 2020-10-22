@@ -21,6 +21,9 @@ before_install:
     - sudo apt-get install -qq vera++
     - sudo apt-get install -qq doxygen
     - sudo apt-get install graphviz
+    - sudo pip3 install -U jinja2 Pygments
+    - sudo apt-get -y install texlive-base texlive-latex-extra
+    - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
     # wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     # bash miniconda.sh -b -p $HOME/miniconda
@@ -47,17 +50,19 @@ jobs:
         - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
         - python3 test_Bedload.py
     - script:
+      if: type = cron OR type = pull_request
       - cd test-ci/1DAvalancheMuI
       - travis_wait 30 ./Allrun
       - python3 test_AvalancheMuI.py
     - script:
+      if: type = cron OR type = pull_request
       - cd test-ci/1DSimpleShear/ && ./Allrun
       - python3 test_1DSimpleShear.py
       - cd ../1DBoundaryLayer/
       - travis_wait 30 ./Allrun
       - python3 test_1DBoundaryLayer.py
     - stage: build pages
-      if: repo = SedFoam/sedfoam
+      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
       script:
         - cd doc/
