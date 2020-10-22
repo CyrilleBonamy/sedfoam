@@ -14,12 +14,13 @@
  *
  */
 /*! \page tutorials Tutorials
-\tableofcontents
 
 In this chapter we shall describe in detail the process of setup, simulation and post-processing for some SedFOAM test cases
 All the tutorial cases are in the tutorial directory. The text herein is highly inspired from the OpenFOAM user-guide for the cavity turorial available at http://cfd.direct/openfoam/user-guide/cavity/ but is adapted to the specificity of sedFoam.
 
 The test cases provided with sedFoam are aimed to facilitate the learning as well as to allow for the development of new configurations. If you develop new things do not hesitate to share your development with us so that we can incorporate them in the github repository and others will benefit from your work the way you benefited from the original sedFoam version!
+
+\tableofcontents{xml:1}
 
 \section  One-dimensional 1D test cases
 
@@ -551,10 +552,10 @@ python plot_tutoSedimentation.py
 
 and you should see the following figures:
 
-@image html "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model).  " width=20px
+@image html "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model).  " width=600px
 @image latex "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model)."
 
-@image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=20px
+@image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=600px
 @image latex "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model). " 
 
 \subsection BedLoadCLB 1DBedload: Laminar bedLoad
@@ -703,7 +704,7 @@ python plot_tutoBedLoadCLB.py
 
 and you should see the following figures:
 
-@image html "res1_tuto2.png" "Figure 4: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=100px
+@image html "res1_tuto2.png" "Figure 4: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=800px
 @image latex "res1_tuto2.png" "Figure 4: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a Coulomb rheology between two infinite parallel planes obtained by numerical simulations with the analytical solution of Ouriemi et al. (2009) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
 
 \subsubsection ExtensionBL  Extension to the Mu(Iv) rheology
@@ -739,7 +740,7 @@ python plot_tutoBedLoadMUI.py
 
 that results in the following figures:
 
-@image html "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=100px
+@image html "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles." width=800px
 @image latex "res2_tuto2.png" "Figure 5: Comparison of the streamwise velocity profiles for the flow of a Newtonian fluid over a granular bed having a mu(Iv) rheology between two infinite parallel planes obtained by numerical simulations with  one-dimensional numerical solution presented in Aussillous et al. (2013) in terms of volume fraction (left panel), velocity profiles (middle panel) and particle pressure (right panel) profiles. "
 
 
@@ -1270,7 +1271,7 @@ python plot_tutoSheetFlow.py
 
 and you should see the following figure:
 
-@image html "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model.  " width=100px
+@image html "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model.  " width=800px
 @image latex "res1_tuto3.png" "Figure 6: Comparison of two-phase numerical results with experiments of Revil-Baudard et al. (2015) in terms of velocity profiles, volume fraction, Reynolds shear stress and TKE/granular temperature using the kinetoc theory with the k-epsilon turbulence model."
 
 \section  Multi-dimensional 2D/3D test cases
