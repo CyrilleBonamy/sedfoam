@@ -44,6 +44,7 @@ before_script:
 jobs:
   include:
     - stage: test
+      if: type = cron OR type = pull_request
       script:
         - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
         - python3 test_Sedimentation.py
@@ -67,7 +68,7 @@ jobs:
       script:
         - cd doc/
         - doxygen
-        - mv html ../public/
+        - mv out/html ../public/
         - cp images/twitter.png ../public/
         - cp images/github.png ../public/
       deploy:
