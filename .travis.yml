@@ -19,7 +19,7 @@ before_install:
     - sudo apt-get install -qq openfoam${OF_VERS}
     - sudo apt-get install -qq vera++
     - sudo apt-get install -qq doxygen
-    - sudo apt-get install graphviz
+    - sudo apt-get install graphviz tex-gyre
     - sudo apt-get -y install texlive-base texlive-latex-extra
     - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
