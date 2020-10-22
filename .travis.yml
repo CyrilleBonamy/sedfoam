@@ -1,19 +1,18 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
-python:
-  - "3.7"
 dist: xenial
-language: cpp
+language: python
+python:
+  - "3.8"
 
 env:
   - OF_VERS=6
 
 before_install:
-    - sudo python3 -V
-    - sudo apt-get -y install python3-pip python-dev
-    - sudo pip3 install --upgrade pip
-    - sudo pip3 install -U setuptools
-    - sudo pip3 install fluidfoam
+    - python -V
+    - pip install --upgrade pip
+    - pip install -U setuptools
+    - pip install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
     - sudo apt-get update -qq
@@ -21,6 +20,8 @@ before_install:
     - sudo apt-get install -qq vera++
     - sudo apt-get install -qq doxygen
     - sudo apt-get install graphviz
+    - sudo apt-get -y install texlive-base texlive-latex-extra
+    - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
     # wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     # bash miniconda.sh -b -p $HOME/miniconda
@@ -41,28 +42,35 @@ before_script:
 jobs:
   include:
     - stage: test
+      if: type = cron OR type = pull_request
       script:
         - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
-        - python3 test_Sedimentation.py
+        - python test_Sedimentation.py
         - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
-        - python3 test_Bedload.py
-    - script:
+        - python test_Bedload.py
+    - if: type = cron OR type = pull_request
+      script:
       - cd test-ci/1DAvalancheMuI
       - travis_wait 30 ./Allrun
-      - python3 test_AvalancheMuI.py
-    - script:
+      - python test_AvalancheMuI.py
+    - if: type = cron OR type = pull_request
+      script:
       - cd test-ci/1DSimpleShear/ && ./Allrun
-      - python3 test_1DSimpleShear.py
+      - python test_1DSimpleShear.py
       - cd ../1DBoundaryLayer/
       - travis_wait 30 ./Allrun
-      - python3 test_1DBoundaryLayer.py
+      - python test_1DBoundaryLayer.py
     - stage: build pages
-      if: repo = SedFoam/sedfoam
+      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
       script:
+        - pip install -U jinja2 Pygments
         - cd doc/
-        - doxygen
-        - mv html ../public/
+        - git clone git://github.com/mosra/m.css
+        - cd m.css/documentation
+        - python doxygen.py ../../Doxyfile-mcss
+        - cd ../..
+        - mv out/html ../public/
         - cp images/twitter.png ../public/
         - cp images/github.png ../public/
       deploy:
