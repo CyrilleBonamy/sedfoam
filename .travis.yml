@@ -86,7 +86,7 @@ jobs:
         # La branche Git sur laquelle on souhaite déployer (master, gh-pages, foo...)
         target_branch: gh-pages
         on:
-          branch: master
+          branch: new_css_doc
 
 notifications:
   slack:
