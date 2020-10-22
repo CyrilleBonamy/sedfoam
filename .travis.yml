@@ -70,7 +70,7 @@ jobs:
         - cd m.css/documentation
         - python doxygen.py ../../Doxyfile-mcss
         - cd ../..
-        - mv out/html ../public/
+        - mv mcssout/html ../public/
         - cp images/twitter.png ../public/
         - cp images/github.png ../public/
       deploy:

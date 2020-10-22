@@ -39,9 +39,10 @@ The second part provides informations for developers.
 \addindex license
 \addindex GPL
 
-Copyright &copy; 2019 by
-<a href="mailto:cyrille.bonamy@legi.cnrs.fr">Cyrille Bonamy</a>,
-Julien Chauchat, Tim Nagel, Antoine Mathieu, Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.<p>
+Copyright &copy; 2020 by
+<a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">Cyrille Bonamy</a>,
+<a href="mailto:julien.chauchat@univ-grenoble-alpes.fr">Julien Chauchat,
+Tim Nagel, Antoine Mathieu, Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.<p>
 
 Permission to use, copy, modify, and distribute this software and its
 documentation under the terms of the GNU General Public License is hereby 
@@ -55,7 +56,7 @@ for more details.
 
 <h2>Acknowledgments</h2>
 \addindex acknowledgments
-This study is supported by National Science Foundation (CMMI-1135026; OCE-1356855), Office of Naval Research (N00014-1e4-1-0586, Littoral Geosciences and Optics Program), the R\'egion Rhones-Alpes (COOPERA project and Explora Pro grant) and the French national programme EC2CO-LEFE MODSED. We gratefully acknowledge developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
+This study is supported by National Science Foundation (CMMI-1135026; OCE-1356855), Office of Naval Research (N00014-1e4-1-0586, Littoral Geosciences and Optics Program), the Région Rhones-Alpes (COOPERA project and Explora Pro grant) and the French national programme EC2CO-LEFE MODSED. We gratefully acknowledge developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
 
 \htmlonly
 Go to the <a href="install.html">next</a> section.
