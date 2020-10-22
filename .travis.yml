@@ -44,17 +44,18 @@ before_script:
 jobs:
   include:
     - stage: test
-      if: type = cron OR type = pull_request
       script:
         - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
         - python3 test_Sedimentation.py
         - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
         - python3 test_Bedload.py
-    - script:
+    - if: type = cron OR type = pull_request
+      script:
       - cd test-ci/1DAvalancheMuI
       - travis_wait 30 ./Allrun
       - python3 test_AvalancheMuI.py
-    - script:
+    - if: type = cron OR type = pull_request
+      script:
       - cd test-ci/1DSimpleShear/ && ./Allrun
       - python3 test_1DSimpleShear.py
       - cd ../1DBoundaryLayer/
