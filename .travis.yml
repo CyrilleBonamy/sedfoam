@@ -9,11 +9,11 @@ env:
   - OF_VERS=6
 
 before_install:
-    - sudo python3 -V
+    - sudo python -V
     - sudo apt-get -y install python3-pip python-dev
-    - sudo pip3 install --upgrade pip
-    - sudo pip3 install -U setuptools
-    - sudo pip3 install fluidfoam
+    - sudo pip install --upgrade pip
+    - sudo pip install -U setuptools
+    - sudo pip install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
     - sudo apt-get update -qq
@@ -21,7 +21,7 @@ before_install:
     - sudo apt-get install -qq vera++
     - sudo apt-get install -qq doxygen
     - sudo apt-get install graphviz
-    - sudo pip3 install -U jinja2 Pygments
+    - sudo pip install -U jinja2 Pygments
     - sudo apt-get -y install texlive-base texlive-latex-extra
     - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
@@ -47,21 +47,21 @@ jobs:
       if: type = cron OR type = pull_request
       script:
         - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
-        - python3 test_Sedimentation.py
+        - python test_Sedimentation.py
         - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
-        - python3 test_Bedload.py
+        - python test_Bedload.py
     - if: type = cron OR type = pull_request
       script:
       - cd test-ci/1DAvalancheMuI
       - travis_wait 30 ./Allrun
-      - python3 test_AvalancheMuI.py
+      - python test_AvalancheMuI.py
     - if: type = cron OR type = pull_request
       script:
       - cd test-ci/1DSimpleShear/ && ./Allrun
-      - python3 test_1DSimpleShear.py
+      - python test_1DSimpleShear.py
       - cd ../1DBoundaryLayer/
       - travis_wait 30 ./Allrun
-      - python3 test_1DBoundaryLayer.py
+      - python test_1DBoundaryLayer.py
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
@@ -69,7 +69,7 @@ jobs:
         - cd doc/
         - git clone git://github.com/mosra/m.css
         - cd m.css/documentation
-        - python3 doxygen.py ../../Doxyfile-mcss
+        - python doxygen.py ../../Doxyfile-mcss
         - cd ../..
         - mv out/html ../public/
         - cp images/twitter.png ../public/
