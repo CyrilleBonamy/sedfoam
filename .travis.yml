@@ -42,7 +42,6 @@ before_script:
 jobs:
   include:
     - stage: test
-      if: type = cron OR type = pull_request
       script:
         - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
         - python test_Sedimentation.py
