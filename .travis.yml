@@ -9,11 +9,10 @@ env:
   - OF_VERS=6
 
 before_install:
-    - sudo python -V
-    - sudo apt-get -y install python3-pip python-dev
-    - sudo pip install --upgrade pip
-    - sudo pip install -U setuptools
-    - sudo pip install fluidfoam
+    - python -V
+    - pip install --upgrade pip
+    - pip install -U setuptools
+    - pip install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
     - sudo apt-get update -qq
@@ -21,7 +20,6 @@ before_install:
     - sudo apt-get install -qq vera++
     - sudo apt-get install -qq doxygen
     - sudo apt-get install graphviz
-    - sudo pip install -U jinja2 Pygments
     - sudo apt-get -y install texlive-base texlive-latex-extra
     - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
@@ -66,6 +64,7 @@ jobs:
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
       script:
+        - pip install -U jinja2 Pygments
         - cd doc/
         - git clone git://github.com/mosra/m.css
         - cd m.css/documentation
