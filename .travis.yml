@@ -1,9 +1,9 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
-python:
-  - "3.7"
 dist: xenial
-language: cpp
+language: python
+python:
+  - "3.8"
 
 env:
   - OF_VERS=6
