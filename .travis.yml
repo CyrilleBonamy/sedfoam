@@ -71,8 +71,7 @@ jobs:
         - python doxygen.py ../../Doxyfile-mcss
         - cd ../..
         - mv mcssout/html ../public/
-        - cp images/twitter.png ../public/
-        - cp images/github.png ../public/
+        - cp images/* ../public/
       deploy:
         # Utiliser le processus de déploiement des pages Github
         provider: pages
