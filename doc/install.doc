@@ -15,7 +15,6 @@
  */
 /*! \page install Installation
 
-\addindex installation
 \tableofcontents
 
 \section install_src_unix Compiling from source with supported OpenFOAM (5.0, 6.0, 1912, 2006...)

@@ -14,12 +14,13 @@
  *
  */
 /*! \page tutorials Tutorials
-\tableofcontents
 
 In this chapter we shall describe in detail the process of setup, simulation and post-processing for some SedFOAM test cases
 All the tutorial cases are in the tutorial directory. The text herein is highly inspired from the OpenFOAM user-guide for the cavity turorial available at http://cfd.direct/openfoam/user-guide/cavity/ but is adapted to the specificity of sedFoam.
 
 The test cases provided with sedFoam are aimed to facilitate the learning as well as to allow for the development of new configurations. If you develop new things do not hesitate to share your development with us so that we can incorporate them in the github repository and others will benefit from your work the way you benefited from the original sedFoam version!
+
+\tableofcontents{xml:1}
 
 \section  One-dimensional 1D test cases
 
@@ -39,7 +40,7 @@ OpenFOAM always operates in a 3 dimensional Cartesian coordinate system and all 
 
 The sedimentation domain consists of a square of side length L = 0.006 m in the x–y plane and of height h=0.06 m in the vertical direction z. The side lentgh is chosen to ensure a unity cell aspect ratio. A uniform mesh of 1 by 1 by 100 cells will be used. The block structure is shown in Figure 1.
 
-@image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px background-color=white
+@image html "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 @image latex "Skecth1DSedim.png" "Figure 1: Block structure of the mesh for the 1D sedimentation problem. " width=200px
 
 
@@ -551,10 +552,10 @@ python plot_tutoSedimentation.py
 
 and you should see the following figures:
 
-@image html "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model).  " width=400px
+@image html "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model).  " width=600px
 @image latex "res1_tuto1.png" "Figure 2: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for the settling curves: time evolution of the lower and upper interface positions (circles: experiments ; lines: model)."
 
-@image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=400px
+@image html "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model)." width=600px
 @image latex "res2_tuto1.png" "Figure 3: Comparison of two-phase numerical results with experiments of Pham Van Bang et al. (2006) for solid phase volume fraction profiles (dashed blue lines: experiment ; solid red lines: model). " 
 
 \subsection BedLoadCLB 1DBedload: Laminar bedLoad
