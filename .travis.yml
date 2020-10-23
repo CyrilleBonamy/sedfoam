@@ -5,8 +5,9 @@ python:
   - "3.8"
 
 dist: 
-  - focal
+  - bionic
 env:
+  - OF_VERS=6
   - OF_VERS=7
 
 before_install:
@@ -63,7 +64,7 @@ jobs:
       - travis_wait 30 ./Allrun
       - python test_1DBoundaryLayer.py
     - stage: build pages
-      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
+      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam AND env(OF_VERS) = 7
       install: skip
       script:
         - pip install -U jinja2 Pygments
