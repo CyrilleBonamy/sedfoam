@@ -22,7 +22,6 @@ before_install:
     - sudo apt-get install -qq openfoam${OF_VERS}
     - sudo apt-get install -qq vera++
     - sudo apt-get install graphviz tex-gyre
-    - sudo apt-get install dvisvgm libclang-9-dev libclang-cpp9
     - sudo apt-get -y install texlive-base texlive-latex-extra
     - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
@@ -64,9 +63,13 @@ jobs:
       - travis_wait 30 ./Allrun
       - python test_1DBoundaryLayer.py
     - stage: build pages
-      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam AND env(OF_VERS) = 7
+      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
+      exclude:
+      - env = bionic
+      - OF_VERSION = 6
       install: skip
       script:
+        - sudo apt-get install dvisvgm libclang-9-dev libclang-cpp9
         - pip install -U jinja2 Pygments
         - wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz
         - tar -xvf doxygen-1.8.20.linux.bin.tar.gz
