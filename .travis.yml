@@ -43,7 +43,6 @@ before_script:
     - source /opt/openfoam${OF_VERS}/etc/bashrc
 
 jobs:
-  include:
     - stage: test
       script:
         - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
@@ -62,6 +61,7 @@ jobs:
       - cd ../1DBoundaryLayer/
       - travis_wait 30 ./Allrun
       - python test_1DBoundaryLayer.py
+  include:
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       dist: focal
