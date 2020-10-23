@@ -51,7 +51,7 @@ PROJECT_BRIEF          =
 # and the maximum width should not exceed 200 pixels. Doxygen will copy the logo
 # to the output directory.
 
-PROJECT_LOGO           = SedFOAM1.png
+PROJECT_LOGO           = sedFoam_favicon.png
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is
@@ -292,7 +292,7 @@ EXTENSION_MAPPING      =
 # case of backward compatibilities issues.
 # The default value is: YES.
 
-MARKDOWN_SUPPORT       = NO
+MARKDOWN_SUPPORT       = YES
 
 # When enabled doxygen tries to link words that correspond to documented
 # classes, or namespaces to their corresponding documentation. Such a link can
@@ -764,8 +764,10 @@ WARN_LOGFILE           =
 INPUT                  = index.doc \
                          install.doc \
                          starting.doc \
-                         tutorials.doc \
+                         tutorials_1d.doc \
+                         tutorials_2d3d.doc \
                          input.doc \  
+                         credits.doc \  
                          ../solver
 
 # This tag can be used to specify the character encoding of the source files
