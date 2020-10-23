@@ -13,9 +13,9 @@ before_install:
     - pip install --upgrade pip
     - pip install -U setuptools
     - pip install fluidfoam
-    - sudo add-apt-repository http://dl.openfoam.org/ubuntu
+#    - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6C0DAC728B29D817 
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
-    - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6C0DAC728B29D817 
+    - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo apt-get update -qq
     - sudo apt-get install -qq openfoam${OF_VERS}
     - sudo apt-get install -qq vera++
