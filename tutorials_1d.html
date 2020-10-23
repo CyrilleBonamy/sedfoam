@@ -27,15 +27,21 @@
             <li>
               <a href="pages.html">Pages</a>
               <ol>
+                <li><a href="index.html">About sedFoam</a></li>
                 <li><a href="install.html">Installation</a></li>
                 <li><a href="starting.html">Getting started</a></li>
+              </ol>
+            </li>
+            <li>
+              <a href="pages.html">Tutorials</a>
+              <ol>
                 <li><a href="tutorials_1d.html" id="m-navbar-current">One-dimensional test cases</a></li>
                 <li><a href="tutorials_2d3d.html">Multi-dimensional tutorials</a></li>
-                <li><a href="inputs.html">Input description</a></li>
+                <li><a href="inputs.html">Input Parameters</a></li>
               </ol>
             </li>
           </ol>
-          <ol class="m-col-t-6 m-col-m-none" start="2">
+          <ol class="m-col-t-6 m-col-m-none" start="3">
             <li><a href="namespaces.html">Namespaces</a></li>
             <li><a href="annotated.html">Classes</a></li>
             <li><a href="files.html">Files</a></li>
@@ -416,7 +422,7 @@ FrictionModel   Coulomb;
 
 PPressureModel  none;
 
-FluidViscosityModel Einstein;</pre><p>On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see <a href="inputs.html" class="m-doc">Input description</a> for details).<br /></p><p>For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on sedFoam.<br /></p><p>The remaining dictionaries are not used for this tutorial and will not be detailled here. Their content will be explained in the next tutorials when they are used.</p></section><section id="control_sedFoam"><h5><a href="#control_sedFoam">Control</a></h5><p>Input data relating to the control of time and reading and writing of the solution data are read in from the controlDict dictionary. The user should view this file; as a case control file, it is located in the system directory.</p><p>The start/stop times and the time step for the run must be set. OpenFOAM offers great flexibility with time control which is described in full in section 4.3. In this tutorial we wish to start the run at time t = 0 which means that OpenFOAM needs to read field data from a directory named 0. Therefore we set the startFrom keyword to startTime and then specify the startTime keyword to be 0.</p><p>As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity ( <svg class="m-math" style="width: 7.019em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 67.382353 9.962629">
+FluidViscosityModel Einstein;</pre><p>On the first line the switch granularRheology allows to turn on and off this module. The keywords FrictionModel, PPressureModel and FluidViscosityModel allow to choose the friction model, the shear induced particle pressure model and the effective viscosity model (see <a href="inputs.html" class="m-doc">Input Parameters</a> for details).<br /></p><p>For the present case the granularRheology is set to Coulomb and the FluidViscosityModel is used for the effective viscosity model and a Einstein model is used. All the details concerning the different models can be found in the Geophysical Model Development paper on sedFoam.<br /></p><p>The remaining dictionaries are not used for this tutorial and will not be detailled here. Their content will be explained in the next tutorials when they are used.</p></section><section id="control_sedFoam"><h5><a href="#control_sedFoam">Control</a></h5><p>Input data relating to the control of time and reading and writing of the solution data are read in from the controlDict dictionary. The user should view this file; as a case control file, it is located in the system directory.</p><p>The start/stop times and the time step for the run must be set. OpenFOAM offers great flexibility with time control which is described in full in section 4.3. In this tutorial we wish to start the run at time t = 0 which means that OpenFOAM needs to read field data from a directory named 0. Therefore we set the startFrom keyword to startTime and then specify the startTime keyword to be 0.</p><p>As the simulation progresses we wish to write results at certain intervals of time that we can later view with a post-processing package. The writeControl keyword presents several options for setting the time at which the results are written; here we select the adjustableRunTime option which specifies that results are written every writeInterval seconds of simulated time, adjusting the time steps to coincide with the writeInterval if necessary and the time step is automatically adjusted using adjustTimeStep = on. The time step controled using different criteria on Courant numbers based on the maximum velocity, the relative velocity ( <svg class="m-math" style="width: 7.019em; height: 1.038em; vertical-align: -0.187em;" viewBox="0 -8.169366 67.382353 9.962629">
 <title>
 $ U_r=U_b-U_a $
 </title>
@@ -1463,7 +1469,7 @@ maxDeltaT       2e-5;</pre></section></section><section id="postSF"><h3><a href=
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>SedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">SedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.8.20 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
+        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.8.20 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
       </div>
     </div>
   </div>

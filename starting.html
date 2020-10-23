@@ -27,15 +27,21 @@
             <li>
               <a href="pages.html">Pages</a>
               <ol>
+                <li><a href="index.html">About sedFoam</a></li>
                 <li><a href="install.html">Installation</a></li>
                 <li><a href="starting.html" id="m-navbar-current">Getting started</a></li>
+              </ol>
+            </li>
+            <li>
+              <a href="pages.html">Tutorials</a>
+              <ol>
                 <li><a href="tutorials_1d.html">One-dimensional test cases</a></li>
                 <li><a href="tutorials_2d3d.html">Multi-dimensional tutorials</a></li>
-                <li><a href="inputs.html">Input description</a></li>
+                <li><a href="inputs.html">Input Parameters</a></li>
               </ol>
             </li>
           </ol>
-          <ol class="m-col-t-6 m-col-m-none" start="2">
+          <ol class="m-col-t-6 m-col-m-none" start="3">
             <li><a href="namespaces.html">Namespaces</a></li>
             <li><a href="annotated.html">Classes</a></li>
             <li><a href="files.html">Files</a></li>
@@ -55,13 +61,14 @@
         <h1>
           Getting started
         </h1>
+        <p>General informations about OpenFoam test-case.</p>
         <div class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li><a href="#running">Running a case</a></li>
           </ul>
         </div>
-<p>The executable <code>sedFoam_rbgh</code> is the main program that allows to launch a computation.</p><p>This page gives some practical details about the computation set-up and the input/output files.</p><section id="running"><h2><a href="#running">Running a case</a></h2><p>A computation is run in a case_directory that contains several sub-folders and files:</p><ul><li>constant directory: contains the description of the mesh in the subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.</li><li>system directory: contains the setting parameters associated with the solution procedure. It contains at least the following 3 files: controlDict where run control parameters are set including start/end time, time step and parameters for data output; fvSchemes where discretisation schemes used in the solution may be selected at run-time; and, fvSolution where the equation solvers, tolerances and other algorithm controls are set for the run.</li><li>The ‘time’ directories containing variable fields, like velocity, pressure, TKE, etc... in separated files, one file per variable. Each file contains internal field values and boundary field conditions and values. The name of each time directory is based on the simulated time at which the data is written.</li></ul><p>The system folder also contains dictionary files allowing to set complex initial conditions (funkySetFieldsDict), decompose the numerical domain for parrallel computations (decomposeParDict) for example. We usually use a 0_org folder with uniform fields distribution before using funkySetFields to be able to rerun easily the utilty.<br /></p><p>More detailed informations can be found <a href="http://cfd.direct/openfoam/user-guide/case-file-structure/#x16-1180004.1">here</a>. The specific SedFoam input files will be described in the tutorial section.</p><p><a name="extract_all"></a></p>Go to the <a href="tutorials_1d.html">next</a> section or return to the
+<p>The executable <code>sedFoam_rbgh</code> is the main program that allows to launch a computation.</p><p>This page gives some practical details about the computation set-up and the input/output files.</p><section id="running"><h2><a href="#running">Running a case</a></h2><p>A computation is run in a case_directory that contains several sub-folders and files:</p><ul><li>constant directory: contains the description of the mesh in the subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.</li><li>system directory: contains the setting parameters associated with the solution procedure. It contains at least the following 3 files: controlDict where run control parameters are set including start/end time, time step and parameters for data output; fvSchemes where discretisation schemes used in the solution may be selected at run-time; and, fvSolution where the equation solvers, tolerances and other algorithm controls are set for the run.</li><li>The ‘time’ directories containing variable fields, like velocity, pressure, TKE, etc... in separated files, one file per variable. Each file contains internal field values and boundary field conditions and values. The name of each time directory is based on the simulated time at which the data is written.</li></ul><p>The system folder also contains dictionary files allowing to set complex initial conditions (funkySetFieldsDict), decompose the numerical domain for parrallel computations (decomposeParDict) for example. We usually use a 0_org folder with uniform fields distribution before using funkySetFields to be able to rerun easily the utilty.<br /></p><p>More detailed informations can be found <a href="http://cfd.direct/openfoam/user-guide/case-file-structure/#x16-1180004.1">here</a>. The specific SedFoam input files will be described in the tutorial section.</p><p><a name="extract_all"></a></p>Go to the <a href="tutorials_1d.html">tutorials</a> section or return to the
  <a href="index.html">index</a>.</section>
       </div>
     </div>
@@ -97,7 +104,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>SedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">SedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.8.20 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
+        <p>sedFoam docs. Part of the <a href="https://github.com/SedFoam/sedfoam">sedFoam project</a>, copyright © <a href="cyrille.bonamy@univ-grenoble-alpes.fr/">Cyrille Bonamy</a> and <a href="credits-contributors.html">contributors</a>, 2015&ndash;2020.<br />Generated by <a href="https://doxygen.org/">Doxygen</a> 1.8.20 and <a href="https://mcss.mosra.cz/">m.css</a>. Contact the team via <a href="https://github.com/SedFoam/sedfoam">GitHub</a>, <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">e-mail</a> or <a href="https://twitter.com/sedfoam">Twitter</a>.</p>
       </div>
     </div>
   </div>
