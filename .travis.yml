@@ -1,6 +1,6 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
-dist: bionic
+dist: focal 
 language: python
 python:
   - "3.8"
@@ -15,11 +15,12 @@ before_install:
     - pip install fluidfoam
     - sudo add-apt-repository http://dl.openfoam.org/ubuntu
     - sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
+    - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6C0DAC728B29D817 
     - sudo apt-get update -qq
     - sudo apt-get install -qq openfoam${OF_VERS}
     - sudo apt-get install -qq vera++
     - sudo apt-get install graphviz tex-gyre
-    - sudo apt-get install libclang-9-dev
+    - sudo apt-get install doxygen
     - sudo apt-get -y install texlive-base texlive-latex-extra
     - sudo apt-get -y install texlive-fonts-extra texlive-fonts-recommended
     ## http://conda.pydata.org/docs/travis.html#the-travis-yml-file
@@ -65,9 +66,9 @@ jobs:
       install: skip
       script:
         - pip install -U jinja2 Pygments
-        - wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz
-        - tar -xvf doxygen-1.8.20.linux.bin.tar.gz
-        - export PATH=$PWD/doxygen-1.8.20/bin:$PATH
+#        - wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz
+#        - tar -xvf doxygen-1.8.20.linux.bin.tar.gz
+#        - export PATH=$PWD/doxygen-1.8.20/bin:$PATH
         - cd doc/
         - git clone git://github.com/mosra/m.css
         - cd m.css/documentation
