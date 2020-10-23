@@ -28,7 +28,7 @@ FINE_PRINT = """<p>SedFoam docs. Part of the <a href="https://github.com/SedFoam
 
 SEARCH_HELP = """<p class="m-noindent">Search for symbols, directories, files, pages, OpenGL, GLSL, Vulkan and OpenAL APIs. You can omit any prefix from the symbol or file path; adding a <code>:</code> or <code>/</code> suffix lists all members of given symbol or directory.</p> <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span> / <span class="m-label m-dim">&uarr;</span> to navigate through the list, <span class="m-label m-dim">Enter</span> to go. <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can copy a link to the result using <span class="m-label m-dim">⌘</span> <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span> <span class="m-label m-dim">M</span> produces a Markdown link.</p>"""
 
-FAVICON = 'SedFOAM.png'
+FAVICON = 'sedFoam_favicon.png'
 
 VERSION_LABELS = True
 

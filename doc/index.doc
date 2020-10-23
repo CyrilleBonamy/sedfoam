@@ -42,7 +42,7 @@ The second part provides informations for developers.
 Copyright &copy; 2020 by
 <a href="mailto:cyrille.bonamy@univ-grenoble-alpes.fr">Cyrille Bonamy</a>,
 <a href="mailto:julien.chauchat@univ-grenoble-alpes.fr">Julien Chauchat</a>,
-Tim Nagel, Antoine Mathieu, Zhen Cheng, Eduard Puig Montella and Tian-Jian Hsu.<p>
+and <a href="credits-contributors.html">contributors.</a><p>
 
 Permission to use, copy, modify, and distribute this software and its
 documentation under the terms of the GNU General Public License is hereby 
@@ -55,7 +55,8 @@ for more details.
 <p>
 
 <h2>Acknowledgments</h2>
-This study is supported by National Science Foundation (CMMI-1135026; OCE-1356855), Office of Naval Research (N00014-1e4-1-0586, Littoral Geosciences and Optics Program), the Région Rhones-Alpes (COOPERA project and Explora Pro grant) and the French national programme EC2CO-LEFE MODSED. We gratefully acknowledge developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
+This project is supported by many organisations.
+<a href="credits-contributors.html">Please find the list here.</a>
 
 \htmlonly
 Go to the <a href="install.html">next</a> section.
