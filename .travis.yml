@@ -6,7 +6,7 @@ python:
   - "3.8"
 
 env:
-  - OF_VERS=6
+  - OF_VERS=7
 
 before_install:
     - python -V
