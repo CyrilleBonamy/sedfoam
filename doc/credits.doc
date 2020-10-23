@@ -14,13 +14,15 @@ Are the below lists missing your name or something's wrong?
 -   **Julien Chauchat** ([\@jchauchat](https://github.com/jchauchat)) --- core developer and Project Investigator
 -   **Tian-Jian Hsu** ([\@tom](https://sites.udel.edu/thsu/group-members/)) --- Project Investigator
 -   **Antoine Mathieu** ([\@antoine](https://github.com/mathieu7an)) --- core developer
--   ** developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
+-   **Eduard Puig-Montella** ([\@ed](https://github.com/puigmontella)) --- core developer
+-   **Tim Nagel** ([\@tim](https://www.researchgate.net/profile/Tim_Nagel3)) --- developer
+-   Developers involved in OpenFOAM, which is the foundation of the new solver SedFoam
 
 @section Organisations
--   ** National Science Foundation (CMMI-1135026; OCE-1356855)
--   ** Office of Naval Research (N00014-1e4-1-0586, Littoral Geosciences and Optics Program)
--   ** the Région Rhones-Alpes (COOPERA project and Explora Pro grant) 
--   ** the French national programme EC2CO-LEFE MODSED
+-   **National Science Foundation** (CMMI-1135026; OCE-1356855)
+-   **Office of Naval Research** (N00014-1e4-1-0586, Littoral Geosciences and Optics Program)
+-   the **Région Rhones-Alpes** (COOPERA project and Explora Pro grant) 
+-   the French national programme EC2CO-LEFE MODSED
 
 
 */
