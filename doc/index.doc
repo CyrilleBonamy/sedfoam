@@ -16,7 +16,8 @@
 /*! 
 \mainpage 
 <!--sedFOAM Manual-->
-
+@image html "cylinder3d.png" width=800px
+@image latex "cylinder3d.png"
 <h2>Introduction</h2>
 This documentation describes the three-dimensional two-phase flow solver for sediment transport applications:  SedFoam. The solver is based on twoPhaseEulerFoam available in the official release of the open-source CFD software OpenFOAM (based on OF2.4). In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different inter-granular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology &mu(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a &k-&epsilon and a &k-&omega model. 
 
