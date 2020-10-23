@@ -6,9 +6,7 @@ python:
 
 dist: 
   - focal
-  - bionic
 env:
-  - OF_VERS=6
   - OF_VERS=7
 
 before_install:
@@ -44,9 +42,6 @@ before_script:
     - source /opt/openfoam${OF_VERS}/etc/bashrc
 
 jobs:
-  exclude:
-  - dist: focal
-    env: OF_VERS=6
   include:
     - stage: test
       if: type = cron OR type = pull_request
@@ -70,7 +65,6 @@ jobs:
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
-      dist: focal
       script:
         - pip install -U jinja2 Pygments
         - wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz
