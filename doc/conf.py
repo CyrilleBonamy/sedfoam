@@ -13,7 +13,8 @@ LINKS_NAVBAR1 = [
     (None, 'pages', [
         (None, 'install'),
         (None, 'starting'),
-        ("Tutorials", 'tutorials'),
+        ("Tutorials 1D", 'tutorials_1d'),
+        ("Multi-dimensinal tutorials", 'tutorials_2d3d'),
         ("Input description", 'inputs')
     ])
 ]
