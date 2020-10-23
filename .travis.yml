@@ -68,7 +68,7 @@ jobs:
       - travis_wait 30 ./Allrun
       - python test_1DBoundaryLayer.py
     - stage: build pages
-      if: (repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam) AND dist = focal 
+      if: dist = focal AND (repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam)
       install: skip
       script:
         - pip install -U jinja2 Pygments
