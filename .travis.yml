@@ -6,6 +6,7 @@ python:
 
 dist: 
   - bionic
+  - focal
 env:
   - OF_VERS=6
   - OF_VERS=7
@@ -65,8 +66,9 @@ jobs:
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       exclude:
-      - env = bionic
-        OF_VERSION = 6
+      - dist = bionic
+      - dist = focal
+        env OF_VERS = 6
       install: skip
       script:
         - sudo apt-get install dvisvgm libclang-9-dev libclang-cpp9
