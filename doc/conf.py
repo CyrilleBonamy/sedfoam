@@ -11,11 +11,11 @@ MAIN_PROJECT_URL = 'https://github.com/SedFoam/sedfoam'
 
 LINKS_NAVBAR1 = [
     (None, 'pages', [
-        ("About sedFoam", 'index'),
+        ("<a href=\"index.html\">About sedFoam</a>",),
         (None, 'install'),
         (None, 'starting')
     ]),
-    ('Tutorials',  'pages', [
+    ('Tutorials', 'pages', [
         ("One dimensional Tutorials", 'tutorials_1d'),
         ("Multi-dimensinal tutorials", 'tutorials_2d3d'),
         ("Input description", 'inputs')
