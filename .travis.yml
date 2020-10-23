@@ -68,8 +68,9 @@ jobs:
       - travis_wait 30 ./Allrun
       - python test_1DBoundaryLayer.py
     - stage: build pages
-      if: dist = focal AND (repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam)
+      if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       install: skip
+      dist: focal
       script:
         - pip install -U jinja2 Pygments
         - wget http://doxygen.nl/files/doxygen-1.8.20.linux.bin.tar.gz
