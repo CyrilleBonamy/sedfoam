@@ -1,6 +1,6 @@
 #source : https://github.com/turbinesFoam/turbinesFoam
 sudo: required
-dist: focal
+dist: bionic
 language: python
 python:
   - "3.8"
