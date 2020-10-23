@@ -43,24 +43,24 @@ before_script:
     - source /opt/openfoam${OF_VERS}/etc/bashrc
 
 jobs:
-    - stage: test
-      script:
-        - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
-        - python test_Sedimentation.py
-        - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
-        - python test_Bedload.py
-    - if: type = cron OR type = pull_request
-      script:
-      - cd test-ci/1DAvalancheMuI
-      - travis_wait 30 ./Allrun
-      - python test_AvalancheMuI.py
-    - if: type = cron OR type = pull_request
-      script:
-      - cd test-ci/1DSimpleShear/ && ./Allrun
-      - python test_1DSimpleShear.py
-      - cd ../1DBoundaryLayer/
-      - travis_wait 30 ./Allrun
-      - python test_1DBoundaryLayer.py
+  - stage: test
+    script:
+      - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
+      - python test_Sedimentation.py
+      - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
+      - python test_Bedload.py
+  - if: type = cron OR type = pull_request
+    script:
+    - cd test-ci/1DAvalancheMuI
+    - travis_wait 30 ./Allrun
+    - python test_AvalancheMuI.py
+  - if: type = cron OR type = pull_request
+    script:
+    - cd test-ci/1DSimpleShear/ && ./Allrun
+    - python test_1DSimpleShear.py
+    - cd ../1DBoundaryLayer/
+    - travis_wait 30 ./Allrun
+    - python test_1DBoundaryLayer.py
   include:
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
