@@ -66,8 +66,7 @@ jobs:
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
       exclude:
       - env = bionic
-      exclude:
-      - OF_VERSION = 6
+        OF_VERSION = 6
       install: skip
       script:
         - sudo apt-get install dvisvgm libclang-9-dev libclang-cpp9
