@@ -5,11 +5,11 @@ python:
   - "3.8"
 
 dist: 
-  - bionic
   - focal
+  - bionic
 env:
-  - OF_VERS=6
   - OF_VERS=7
+  - OF_VERS=6
 
 before_install:
     - python -V
@@ -42,21 +42,15 @@ install:
 before_script:
     - source /opt/openfoam${OF_VERS}/etc/bashrc
 
+script:
+  - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
+  - python test_Sedimentation.py
+  - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
+        - python test_Bedload.py
 jobs:
   include:
-    - stage: test
-      dist:
-        - focal
-        - bionic 
-      env: 
-        - OF_VERS = 7
-        - OF_VERS = 6
-      script:
-        - cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties && cp -f system/controlDict.sedim system/controlDict && ./Allrun
-        - python test_Sedimentation.py
-        - cp -f constant/forceProperties.bedload constant/forceProperties && cp -f system/controlDict.bedload system/controlDict && ./Allrun
-        - python test_Bedload.py
-    - if: type = cron OR type = pull_request
+    - stage: advanced tests
+      if: type = cron OR type = pull_request
       script:
       - cd test-ci/1DAvalancheMuI
       - travis_wait 30 ./Allrun
@@ -70,8 +64,6 @@ jobs:
       - python test_1DBoundaryLayer.py
     - stage: build pages
       if: repo = SedFoam/sedfoam OR repo = CyrilleBonamy/sedfoam
-      dist: focal
-      env: OF_VERS = 7
       install: skip
       script:
         - sudo apt-get install dvisvgm libclang-9-dev libclang-cpp9
