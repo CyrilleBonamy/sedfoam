@@ -46,6 +46,12 @@
         <h1>
           Getting started
         </h1>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li><a href="#running">Running a case</a></li>
+          </ul>
+        </div>
 <p>The executable <code>sedFoam_rbgh</code> is the main program that allows to launch a computation.</p><p>This page gives some practical details about the computation set-up and the input/output files.</p><section id="running"><h2><a href="#running">Running a case</a></h2><p>A computation is run in a case_directory that contains several sub-folders and files:</p><ul><li>constant directory: contains the description of the mesh in the subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.</li><li>system directory: contains the setting parameters associated with the solution procedure. It contains at least the following 3 files: controlDict where run control parameters are set including start/end time, time step and parameters for data output; fvSchemes where discretisation schemes used in the solution may be selected at run-time; and, fvSolution where the equation solvers, tolerances and other algorithm controls are set for the run.</li><li>The ‘time’ directories containing variable fields, like velocity, pressure, TKE, etc... in separated files, one file per variable. Each file contains internal field values and boundary field conditions and values. The name of each time directory is based on the simulated time at which the data is written.</li></ul><p>The system folder also contains dictionary files allowing to set complex initial conditions (funkySetFieldsDict), decompose the numerical domain for parrallel computations (decomposeParDict) for example. We usually use a 0_org folder with uniform fields distribution before using funkySetFields to be able to rerun easily the utilty.</p><p>More detailed informations can be found <a href="http://cfd.direct/openfoam/user-guide/case-file-structure/#x16-1180004.1">here</a>. The specific SedFoam input files will be described in the tutorial section.</p><p><a name="extract_all"></a></p></section>
       </div>
     </div>
@@ -91,7 +97,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>SedFOAM. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.11 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+        <p>SedFOAM. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.17 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
       </div>
     </div>
   </div>
