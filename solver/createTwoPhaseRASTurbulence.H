@@ -163,7 +163,8 @@ volScalarField ESD4
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    (-(SUS/(beta+alphaSmall))*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha)) + KE1*ESD1
+    (-(SUS/(beta+alphaSmall))*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha))
+    + KE1*ESD1
 );
 
 volScalarField ESD5

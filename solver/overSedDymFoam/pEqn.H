@@ -286,7 +286,8 @@ if (massFluxInterpolation)
                 volScalarField Da(beta/rhoa*K*rUaA);
                 volScalarField Db(alpha/rhob*K*rUbA);
                 U = cellMask*(alpha*(Uas + Da*Ub) + beta*(Ubs + Db*Ua));
-                volVectorField Ur(cellMask*((1 - Db)*Uas - (1 - Da)*Ubs)/(1 - Da*Db));
+                volVectorField Ur(cellMask*((1 - Db)*Uas - (1 - Da)*Ubs)
+                    /(1 - Da*Db));
 
                 Ua = U + beta*Ur;
                 Ua.correctBoundaryConditions();

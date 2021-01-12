@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
         bool changed = mesh.update();
 
         if (changed)
-        {            
+        {
             Info << "MESH CHANGED" << endl;
             #include "setCellMask.H"
             #include "setInterpolatedCells.H"
@@ -183,12 +183,8 @@ int main(int argc, char *argv[])
                     Uintb.boundaryField()[patchI];
             }
 
-
-
             phia = mesh.Sf() & Ufa;
             phib = mesh.Sf() & Ufb;
-
-
 
             // Zero phi on current H-I
             surfaceScalarField faceMask
