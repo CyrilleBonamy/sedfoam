@@ -71,13 +71,11 @@ volVectorField susb
 // end contribution from Hugo
     */
 
-
 surfaceScalarField phiRa =
 (
    -fvc::interpolate(nuEffa)*mesh.magSf()*(fvc::snGrad(alpha))
    /fvc::interpolate(alpha+ alphaSmall)
 );
-
 fvVectorMatrix UaEqn
 (
     (scalar(1.0) + Cvm*rhob*beta/rhoa)*
@@ -108,7 +106,7 @@ UaEqn += fvm::Sp(beta/rhoa*K, Ua);
 surfaceScalarField phiRb =
 (
   - fvc::interpolate(nuEffb)*mesh.magSf()*(fvc::snGrad(beta))
-   /fvc::interpolate(beta)
+   /fvc::interpolate(beta+alphaSmall)
 );
 
 fvVectorMatrix UbEqn

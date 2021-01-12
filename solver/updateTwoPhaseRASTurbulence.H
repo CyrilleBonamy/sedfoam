@@ -45,11 +45,11 @@ ESD1 = (K/rhob)*(fvc::grad(alpha)) & Urh;
 ESD3 = -2.0*K*alpha/rhob;
 
 // stratification
-ESD4 = -(SUS/beta)*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha);
+ESD4 = -(SUS/(beta+alphaSmall))*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha);
 ESD4 = ESD4 + KE1*ESD1;
 
 // the following term is implemented in epsilon equation.
-ESD5 = -(SUS/beta)*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha);
+ESD5 = -(SUS/(beta+alphaSmall))*(rhoa/rhob-1.0)*gravity & fvc::grad(alpha);
 
 // if ESD5 > 0, then it should be implemented, else, no
 ESD5 = max(ESD5, scalar(0.0)*ESD5);
