@@ -1,3 +1,0 @@
-twophaseTurbulenceModels.C
-
-LIB = $(FOAM_USER_LIBBIN)/libtwoPhaseTurbulenceModels
