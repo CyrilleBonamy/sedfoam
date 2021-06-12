@@ -12,9 +12,7 @@ WORKDIR /root
 RUN git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
 
 WORKDIR /root/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases &&
-                  source /opt/OpenFOAM/setImage_v2006.sh &&
-                  ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake"
 #RUN find /root/sedfoam -name "*.o" -exec rm -f {} \;
 
 
