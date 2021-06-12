@@ -394,7 +394,7 @@ workflows:
           requires:
             - checkstyle
             - build
-      - builddock
+      - builddock:
           requires:
             - test
             - advanced-test
