@@ -14,7 +14,7 @@ WORKDIR /root
 RUN git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
 
 WORKDIR /root/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/openfoam/setenv.sh && ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/openfoam/setEnv.sh && ./Allwmake"
 #RUN find /root/sedfoam -name "*.o" -exec rm -f {} \;
 
 

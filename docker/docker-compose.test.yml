@@ -4,4 +4,4 @@ services:
     build:
       context: .
     image: app
-    command: source /opt/openfoam/setenv.sh && cd sedfoam/test-ci/1DSedim && ./Allrun
+    command: source /opt/openfoam/setEnv.sh && cd sedfoam/test-ci/1DSedim && ./Allrun
