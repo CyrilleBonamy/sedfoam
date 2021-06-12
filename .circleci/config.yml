@@ -164,18 +164,31 @@ jobs:
           name: Run tests
           command: |
             docker-compose -f ./docker/docker-compose.test.yml up
+      - persist_to_workspace:
+          root: .
+          paths:
+            - /caches/app.tar
 
   publishdock:
-    environment:
-      IMAGE_NAME: building-on-ci
-    docker:
-      - image: circleci/buildpack-deps:stretch
+    # Use docker-publisher from above as the Docker container to run this job in
+    executor: docker-publisher
+
     steps:
+      # Set up a separate Docker environment to run `docker` commands in
       - setup_remote_docker
+
+      # Load and un-archive the Docker image
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
-          name: Publish Docker Image to Docker Hub
+          name: Load Docker image
+          command: docker load --input /tmp/workspace/app.tar
+
+      # Log in to Docker Hub and push the image
+      - run:
+          name: Publish Docker image
           command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
             docker push $IMAGE_NAME:latest
 
   build:
