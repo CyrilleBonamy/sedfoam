@@ -1,4 +1,4 @@
-FROM openfoamplus/of_v2012_centos73:release
+FROM openfoamplus/of_v2006_centos73
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
@@ -14,7 +14,7 @@ WORKDIR /root
 RUN git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
 
 WORKDIR /root/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/openfoam/setEnv.sh && ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake"
 #RUN find /root/sedfoam -name "*.o" -exec rm -f {} \;
 
 

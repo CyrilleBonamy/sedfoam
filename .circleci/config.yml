@@ -160,7 +160,7 @@ jobs:
 
   build:
     docker:
-      - image: openfoamplus/of_v2012_centos73:release
+      - image: openfoamplus/of_v2006_centos73
 
     environment:
       WM_NCOMPPROCS: 2
@@ -189,7 +189,7 @@ jobs:
           name: Build sedFoam
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             ./Allwmake
       - persist_to_workspace:
           root: /root
@@ -197,7 +197,7 @@ jobs:
 
   test:
     docker:
-      - image: openfoamplus/of_v2012_centos73:release
+      - image: openfoamplus/of_v2006_centos73
     working_directory: /root/sedfoam
 
     steps:
@@ -218,28 +218,28 @@ jobs:
           name: sedfoam test1D sedim
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd test-ci/1DSedim && cp -f constant/forceProperties.sedim constant/forceProperties &&
             cp -f system/controlDict.sedim system/controlDict  && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2012 /home/ofuser/OpenFOAM/ofuser-v2012 &&
-            source /opt/openfoam/setEnv.sh &&
+            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Sedimentation.py
       - run:
           name: sedfoam test1D bedload
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DSedim && cp -f constant/forceProperties.bedload constant/forceProperties &&
             cp -f system/controlDict.bedload system/controlDict && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'source /opt/openfoam/setEnv.sh &&
+            runuser -l ofuser -c 'source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DSedim && ./Allrun' &&
             python3 test_Bedload.py
           no_output_timeout: 30m
 
   advanced-test:
     docker:
-      - image: openfoamplus/of_v2012_centos73:release
+      - image: openfoamplus/of_v2006_centos73
     working_directory: /root/sedfoam
 
     steps:
@@ -260,16 +260,16 @@ jobs:
           name: sedfoam 1D Avalanche
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2012 /home/ofuser/OpenFOAM/ofuser-v2012 &&
-            source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
+            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DAvalancheMuI && python3 test_AvalancheMuI.py
           no_output_timeout: 30m
   
   advanced-test1:
     docker:
-      - image: openfoamplus/of_v2012_centos73:release
+      - image: openfoamplus/of_v2006_centos73
     working_directory: /root/sedfoam
 
     steps:
@@ -290,9 +290,9 @@ jobs:
           name: sedfoam 1DSimpleShear
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2012 /home/ofuser/OpenFOAM/ofuser-v2012 &&
-            source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
+            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DSimpleShear && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DSimpleShear &&python3 test_1DSimpleShear.py
           no_output_timeout: 30m
@@ -301,15 +301,15 @@ jobs:
           name: sedfoam 1DBoundaryLayer
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
+            runuser -l ofuser -c 'source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DBoundaryLayer && python3 test_1DBoundaryLayer.py
           no_output_timeout: 30m
 
   advanced-test2:
     docker:
-      - image: openfoamplus/of_v2012_centos73:release
+      - image: openfoamplus/of_v2006_centos73
     working_directory: /root/sedfoam
 
     steps:
@@ -330,9 +330,9 @@ jobs:
           name: sedfoam 1DWetAvalanche
           command: >
             shopt -s expand_aliases &&
-            source /opt/openfoam/setEnv.sh && chmod -R a+rwX /root &&
-            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2012 /home/ofuser/OpenFOAM/ofuser-v2012 &&
-            source /opt/openfoam/setEnv.sh &&
+            source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
+            runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
+            source /opt/OpenFOAM/setImage_v2006.sh &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && ./Allrun' &&
             cd /root/sedfoam/test-ci/1DWetAvalanche && python3 test_1DWetAvalanche.py
           no_output_timeout: 30m
