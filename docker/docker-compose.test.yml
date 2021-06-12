@@ -3,5 +3,5 @@ services:
   app:
     build:
       context: .
-    image: app
+    image: $IMAGE_NAME:latest
     command: source /opt/OpenFOAM/setImage_v2006.sh && cd sedfoam/test-ci/1DSedim && ./Allrun
