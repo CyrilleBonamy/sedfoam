@@ -9,14 +9,15 @@ RUN yum update -y \
 
 RUN pip3 install fluidfoam
 
-WORKDIR /root
+
+USER 1000
+WORKDIR /home/ofuser
 #RUN git clone --recurse-submodules -b module_openfoam.com https://github.com/SedFoam/sedfoam.git
 RUN git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
 
-WORKDIR /root/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake"
-#RUN find /root/sedfoam -name "*.o" -exec rm -f {} \;
-
+WORKDIR /home/ofuser/sedfoam
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake && ./Allclean"
+#RUN find /home/ofuser/sedfoam -name "*.o" -exec rm -f {} \;
 
 #WORKDIR /opt
 #RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r compile_of5.0"
@@ -26,7 +27,6 @@ RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006
 #RUN /bin/bash -c "source /opt/openfoam/5.0/OpenFOAM-5.0/etc/bashrc && ./Allwmake"
 #RUN /bin/bash -c "source /opt/openfoam/5.0/OpenFOAM-5.0/etc/bashrc && ./maintainanceScripts/copySwakFilesToSite.sh"
 
-WORKDIR /root
-ENV HOME /root
-WORKDIR /root
+WORKDIR /home/ofuser
+ENV HOME /home/ofuser
 ENTRYPOINT ["/bin/bash", "-c"]
