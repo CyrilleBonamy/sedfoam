@@ -1,7 +1,0 @@
-version: '3'
-services:
-  app:
-    build:
-      context: .
-    image: $IMAGE_NAME:latest
-    command: shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && cd sedfoam/test-ci/1DSeddim && ./Allrun
