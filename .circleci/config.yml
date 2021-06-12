@@ -189,7 +189,7 @@ jobs:
           name: Publish Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push $IMAGE_NAME:latest
+            docker push cbonamy/$IMAGE_NAME:latest
 
   build:
     docker:
