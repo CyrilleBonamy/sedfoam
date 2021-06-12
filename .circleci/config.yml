@@ -126,18 +126,10 @@ jobs:
   builddock:
     working_directory: /app
     docker:
-      - image: docker:20.10-git
+      - image: docker:20.10-dind
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache \
-              py-pip
-            pip install \
-              docker-compose \
-              awscli
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
