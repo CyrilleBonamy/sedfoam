@@ -165,14 +165,14 @@ jobs:
           command: |
             docker-compose -f ./docker/docker-compose.test.yml up
       - persist_to_workspace:
-          root: .
+          root: /caches
           paths:
-            - /caches/app.tar
+            - app.tar
 
   publishdock:
     # Use docker-publisher from above as the Docker container to run this job in
-    executor: docker-publisher
-
+    docker:
+      - image: circleci/buildpack-deps:stretch
     steps:
       # Set up a separate Docker environment to run `docker` commands in
       - setup_remote_docker
