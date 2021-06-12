@@ -4,15 +4,17 @@ ARG WM_NCOMPPROCS=10
 
 RUN yum update -y \
   && yum install -y \
-  git \
+  git python3 python3-pip\
   && yum clean all
+
+RUN pip3 install fluidfoam
 
 WORKDIR /root
 #RUN git clone --recurse-submodules -b module_openfoam.com https://github.com/SedFoam/sedfoam.git
 RUN git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
 
 WORKDIR /root/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2012.sh && ./Allwmake"
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/openfoam/setenv.sh && ./Allwmake"
 #RUN find /root/sedfoam -name "*.o" -exec rm -f {} \;
 
 
