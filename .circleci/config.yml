@@ -365,6 +365,9 @@ workflows:
       - checkstyle
       - build
       - builddock
+      - publishdock:
+          requires:
+            - builddock
       - test:
           requires:
             - checkstyle
