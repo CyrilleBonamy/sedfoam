@@ -1,4 +1,4 @@
-FROM openfoamplus/of_v2012_centos73
+FROM openfoamplus/of_v2012_centos73:release
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 

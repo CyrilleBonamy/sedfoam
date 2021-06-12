@@ -160,7 +160,7 @@ jobs:
 
   build:
     docker:
-      - image: openfoamplus/of_v2012_centos73
+      - image: openfoamplus/of_v2012_centos73:release
 
     environment:
       WM_NCOMPPROCS: 2
@@ -197,7 +197,7 @@ jobs:
 
   test:
     docker:
-      - image: openfoamplus/of_v2012_centos73
+      - image: openfoamplus/of_v2012_centos73:release
     working_directory: /root/sedfoam
 
     steps:
@@ -239,7 +239,7 @@ jobs:
 
   advanced-test:
     docker:
-      - image: openfoamplus/of_v2012_centos73
+      - image: openfoamplus/of_v2012_centos73:release
     working_directory: /root/sedfoam
 
     steps:
@@ -269,7 +269,7 @@ jobs:
   
   advanced-test1:
     docker:
-      - image: openfoamplus/of_v2012_centos73
+      - image: openfoamplus/of_v2012_centos73:release
     working_directory: /root/sedfoam
 
     steps:
@@ -309,7 +309,7 @@ jobs:
 
   advanced-test2:
     docker:
-      - image: openfoamplus/of_v2012_centos73
+      - image: openfoamplus/of_v2012_centos73:release
     working_directory: /root/sedfoam
 
     steps:
