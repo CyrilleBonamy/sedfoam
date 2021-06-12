@@ -352,6 +352,7 @@ workflows:
     jobs:
       - checkstyle
       - build
+      - builddock
       - test:
           requires:
             - checkstyle
@@ -377,7 +378,6 @@ workflows:
     jobs:
       - checkstyle
       - build
-      - builddock
       - test:
           requires:
             - checkstyle
@@ -394,6 +394,12 @@ workflows:
           requires:
             - checkstyle
             - build
+      - builddock
+          requires:
+            - test
+            - advanced-test
+            - advanced-test1
+            - advanced-test2
       - docs-build
       - docs-deploy:
           requires:
