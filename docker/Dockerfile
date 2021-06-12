@@ -16,9 +16,10 @@ RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r 
 
 WORKDIR /home/ofuser/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./maintainanceScripts/compileRequirements.sh"
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake"
-WORKDIR /home/ofuser/swak4Foam/Utilities
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && wmake all"
+WORKDIR /home/ofuser/swak4Foam/Libraries
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && wmake libso groovyBC"
+WORKDIR /home/ofuser/swak4Foam/Utilities/funkySetFields
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && wmake"
 #RUN /bin/bash -c "source /opt/openfoam/5.0/OpenFOAM-5.0/etc/bashrc && ./maintainanceScripts/copySwakFilesToSite.sh"
 
 WORKDIR /home/ofuser
