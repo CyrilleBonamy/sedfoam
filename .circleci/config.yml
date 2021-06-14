@@ -311,14 +311,14 @@ jobs:
           at: /root
 
       - run:
-          name: sedfoam 1DSimpleShear
+          name: sedfoam 1DBedLoadTurb 
           command: >
             shopt -s expand_aliases &&
             source /opt/OpenFOAM/setImage_v2006.sh && chmod -R a+rwX /root &&
             runuser -l ofuser -c 'mkdir OpenFOAM && ln -s /root/OpenFOAM/-v2006 /home/ofuser/OpenFOAM/ofuser-v2006 &&
             source /opt/OpenFOAM/setImage_v2006.sh &&
-            cd /root/sedfoam/test-ci/1DSimpleShear && ./Allrun' &&
-            cd /root/sedfoam/test-ci/1DSimpleShear &&python3 test_1DSimpleShear.py
+            cd /root/sedfoam/test-ci/1DBedLoadTurb && ./Allrun' &&
+            cd /root/sedfoam/test-ci/1DBedLoadTurb &&python3 test_1DBedLoadTurb.py
           no_output_timeout: 30m
 
       - run:
