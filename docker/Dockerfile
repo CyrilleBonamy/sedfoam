@@ -12,7 +12,7 @@ RUN pip3 install fluidfoam
 USER 1000
 
 WORKDIR /home/ofuser
-RUN git clone --recurse-submodules https://github.com/SedFoam/sedfoam.git
+RUN git clone --recurse-submodules --single-branch --branch add_docker_package https://github.com/CyrilleBonamy/sedfoam.git
 
 WORKDIR /home/ofuser
 RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r v2020.06 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/."
