@@ -135,19 +135,3 @@ $BEAR_COMPILE_PREFIX wmake libso swakStateMachine
 
 $BEAR_COMPILE_PREFIX wmake libso groovyStandardBCs
 
-(cd languageIntegration/; $BEAR_COMPILE_PREFIX wmake all)
-
-if [ "$SWAK_USER_PLUGINS" != "" ]
-then
-    plugins=$(echo $SWAK_USER_PLUGINS | tr ";" "\n")
-
-    for plug in $plugins
-    do
-        echo "Compiling user function-plugin $plug"
-        wmake libso $plugins
-    done
-else
-    echo
-    echo "If you have your own function-plugins you can specify them using the SWAK_USER_PLUGINS environment variable and they would be compiled now. If you don't know what this means: don't bother. You propably don't need it"
-    echo
-fi
