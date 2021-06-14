@@ -15,7 +15,7 @@ WORKDIR /home/ofuser
 RUN git clone --recurse-submodules --single-branch --branch add_docker_package https://github.com/CyrilleBonamy/sedfoam.git
 
 WORKDIR /home/ofuser
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r v2020.06 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/."
+RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r v2020.06 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
 
 WORKDIR /home/ofuser/swak4Foam
 RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./maintainanceScripts/compileRequirements.sh"
