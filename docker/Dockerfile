@@ -27,7 +27,7 @@ WORKDIR /home/ofuser
 RUN rm -rf swak4Foam
 
 WORKDIR /home/ofuser/sedfoam
-RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake && ./Allclean"
+RUN /bin/bash -c "shopt -s expand_aliases && source /opt/OpenFOAM/setImage_v2006.sh && ./Allwmake && ./Allwclean"
 #RUN find /home/ofuser/sedfoam -name "*.o" -exec rm -f {} \;
 
 WORKDIR /home/ofuser
