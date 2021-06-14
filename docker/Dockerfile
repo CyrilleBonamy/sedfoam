@@ -6,7 +6,7 @@ RUN yum update -y \
   && yum install -y \
   git python3 python3-pip unzip \
   mercurial readline-devel \
-  texlive dvipng \
+  texlive dvipng python3-tkinter \
   && yum clean all
 RUN pip3 install fluidfoam
 
