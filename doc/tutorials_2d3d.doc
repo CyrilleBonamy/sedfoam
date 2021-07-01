@@ -1,17 +1,8 @@
-/******************************************************************************
- *
- *
- *
- * Copyright (C) 2018 by Cyrille Bonamy, Julien Chauchat, Tim Nagel,
- * Antoine Mathieu, Eduard Puig Montella, Zhen Cheng and Tian-Jian Hsu.
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation under the terms of the GNU General Public License is hereby
- * granted. No representations are made about the suitability of this software
- * for any purpose. It is provided "as it is" without express or implied warranty.
- * See the GNU General Public License for more details.
- *
- *
+/**
+ * \file        tutorials_2d3d.doc
+ * \author      Cyrille Bonamy and Julien Chauchat
+ * \date        June 03, 2021
+ * \brief       tutorials_2d3d (doc)
  */
 /*! \page tutorials_2d3d Multi-dimensional tutorials
 
@@ -112,6 +103,9 @@ For this case, the dense granular flow rheology \f$\mu(I)\f$ is used and the par
 \verbatim
 granularRheology   on;
 
+granularDilatancy  off;
+
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.625;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.4;
@@ -135,8 +129,6 @@ FrictionModel  MuI;
 PPressureModel MuI;
 
 FluidViscosityModel  BoyerEtAl;
-
-DilatancyModel  none;
 
 \endverbatim
 
@@ -472,6 +464,8 @@ Dense granular flow rheology \f$\mu(I_v)\f$ and the dilatancy  model is used as 
 \verbatim
 granularRheology   on;
 
+granularDilatancy  on;
+
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.62;
 
 
@@ -489,7 +483,7 @@ Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-6;
 
 BulkFactor      BulkFactor [ 0 0 0 0 0 0 0 ] 0e0;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1.;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.01;
 
 K_dila          K_dila [ 0 0 0 0 0 0 0 ] 4.0;
 
@@ -498,8 +492,6 @@ alpha_c         alpha_c [ 0 0 0 0 0 0 0 ] 0.585;
 FrictionModel   MuIv;
 
 PPressureModel  MuIv;
-
-DilatancyModel  MuIvdila;
 
 FluidViscosityModel  BoyerEtAl;
 \endverbatim

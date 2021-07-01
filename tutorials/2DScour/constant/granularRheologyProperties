@@ -31,14 +31,12 @@ Bphi            Bphi [ 0 0 0 0 0 0 0 ] 0.66;
 
 n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.0003;
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.001;
 
 FrictionModel  MuI;
 
 PPressureModel MuI;
 
 FluidViscosityModel  BoyerEtAl;
-
-DilatancyModel  none;
 
 // ************************************************************************* //
