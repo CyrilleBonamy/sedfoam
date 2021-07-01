@@ -329,7 +329,7 @@ void Foam::granularRheologyModel::solve
     const dimensionedScalar& Dsmall
 )
 {
-    if (not granularRheology_)
+    if (!granularRheology_)
     {
         return;
     }

@@ -159,7 +159,7 @@ bool twophaseMixingLength<BasicTurbulenceModel>::read()
 template<class BasicTurbulenceModel>
 void twophaseMixingLength<BasicTurbulenceModel>::correct()
 {
-    if (not this->turbulence_)
+    if (!this->turbulence_)
     {
         return;
     }

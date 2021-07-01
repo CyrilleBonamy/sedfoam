@@ -596,7 +596,7 @@ if (interfacialProperties.found("dragPhase"))
     bool validDrag =
         dragPhase == "a" || dragPhase == "b" || dragPhase == "blended";
 
-    if (not validDrag)
+    if (!validDrag)
     {
         FatalErrorIn(args.executable())
             << "invalid dragPhase " << dragPhase

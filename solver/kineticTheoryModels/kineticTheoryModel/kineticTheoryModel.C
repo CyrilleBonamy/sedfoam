@@ -325,7 +325,7 @@ void Foam::kineticTheoryModel::solve
     const dimensionedScalar& tt
 )
 {
-    if (not kineticTheory_)
+    if (!kineticTheory_)
     {
         return;
     }
