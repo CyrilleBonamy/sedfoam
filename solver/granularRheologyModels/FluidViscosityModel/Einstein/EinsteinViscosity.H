@@ -19,12 +19,13 @@ License
     along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::EinsteinViscosity
+    Foam::granularRheologyModels::EinsteinViscosity
 
 Description
 
-    This file is in the \dir FluidViscosityModel/Einstein subdirectory
-    inside the \dir FluidViscosityModel subdirectory
+    This file is in the \dir granularRheologyModels\FluidViscosityModel/Einstein subdirectory
+    inside the \dir granularRheologyModels\FluidViscosityModel subdirectory
+    inside the \dir granularRheologyModels subdirectory
 
 SourceFiles
     EinsteinViscosity.C
