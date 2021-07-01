@@ -23,9 +23,9 @@ Class
 
 Description
 
-    This file is in the \dir granularRheologyModels\FluidViscosityModel/Einstein subdirectory
-    inside the \dir granularRheologyModels\FluidViscosityModel subdirectory
-    inside the \dir granularRheologyModels subdirectory
+    This file is in the \dir granularRheologyModels\FluidViscosityModel/Einstein
+    subdirectory inside the \dir granularRheologyModels\FluidViscosityModel
+    subdirectory inside the \dir granularRheologyModels subdirectory
 
 SourceFiles
     EinsteinViscosity.C
