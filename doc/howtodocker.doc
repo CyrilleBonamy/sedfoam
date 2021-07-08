@@ -4,18 +4,22 @@
  * \date        June 15, 2021
  * \brief       howtodocker (doc)
  */
-/*! \page howtodocker How To work with sedfoam container
-@brief How To use sedfoam docker to test and use sedFoam
+/*! \page howtodocker How To work with sedFoam container
+@brief How To use sedFoam docker to test and use sedFoam
 
 \tableofcontents
 
-Here is a How To about using the sedFoam docker. This page is organised in two sections:
+Here is a How To about using the sedFoam docker.
+
+The prerequisites is to install Docker : https://docs.docker.com/engine/install/
+
+This page is organised in two sections:
 
 - \ref configuration
 - \ref howtouse
 
 //****************************************
-\section configuration Configuration of the docker sedfoam
+\section configuration Configuration of the sedFoam docker
 
 Operating System : Ubuntu focal
 
@@ -29,8 +33,11 @@ Official link : https://hub.docker.com/r/cbonamy/sedfoam_v2106_ubuntu
 
 Dockerfile : https://github.com/SedFoam/sedfoam/blob/master/docker/Dockerfile
 
+Please note that Paraview is not included in the sedFoam docker. The users are
+encouraged to install and use Paraview on the host machine.
+
 //****************************************
-\section howtouse How to use/launch sedfoam docker ?
+\section howtouse How to use/launch sedFoam docker ?
 
 - \ref macOS 
 - \ref windows
@@ -62,8 +69,8 @@ Please adapt the directories to your configuration. In this example, "/Users/tot
 
 On container :
 - source the openfoam environment:
-source /usr/lib/openfoam/openfoam2106/etc/bashrc 
+source /openfoam/bash.rc 
 - hack and enjoy!
-The sedfoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
+The sedFoam files will be in /home/sudofoam and the solver is already compiled. Just test and use.
 
 */
