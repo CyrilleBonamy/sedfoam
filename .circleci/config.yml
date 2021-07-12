@@ -352,7 +352,7 @@ workflows:
       - advanced-test2:
           requires:
             - build
-      - builddock
+      - builddock:
           requires:
             - test
             - advanced-test
