@@ -360,8 +360,9 @@ workflows:
             - advanced-test2
           filters:
             branches:
-              - only: master
-              - only: develop
+              only:
+                - master
+                - develop
       - publishdock:
           requires:
             - builddock
@@ -371,16 +372,18 @@ workflows:
             - docs-build
           filters:
             branches:
-              - only: master
-              - only: develop
+              only:
+                - master
+                - develop
   weekly:
     triggers:
       - schedule:
           cron: "0 2 * * 0"
           filters:
             branches:
-              - only: master
-              - only: develop
+              only:
+                - master
+                - develop
     jobs:
       - checkstyle
       - build
