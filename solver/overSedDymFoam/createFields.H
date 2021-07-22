@@ -260,12 +260,23 @@ dimensionedVector gradPMEAN
 
 dimensionedVector gradPOSC
 (
-    forceProperties.lookupOrDefault
+    dimensionedVector::getOrDefault
     (
         "gradPOSC",
-        dimensionedVector("gradPOSC",
-                          dimensionSet(1, -2, -2, 0, 0, 0, 0),
-                          vector(0, 0, 0) )
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
+    )
+);
+
+dimensionedVector gradConvAcc
+(
+    dimensionedVector::getOrDefault
+    (
+        "gradConvAcc",
+        forceProperties,
+        dimensionSet(1, -2, -2, 0, 0, 0, 0),
+        vector(0, 0, 0)
     )
 );
 dimensionedScalar gradPOSCMin ("gradPOSCMin", gradPOSC.dimensions(), 1e-6);
@@ -451,6 +462,16 @@ volScalarField pa
     dimensionedScalar("zero", dimensionSet(1, -1, -2, 0, 0), 0.0)
 );
 
+volTensorField gradUaT
+(
+    fvc::grad(Ua)().T()
+);
+
+volTensorField gradUbT
+(
+    fvc::grad(Ub)().T()
+);
+
 volTensorField Taub
 (
     IOobject
@@ -534,15 +555,19 @@ volScalarField rho
 
 Info<< "Calculating field DDtUa and DDtUb\n" << endl;
 
-volVectorField DDtUa =
+volVectorField DDtUa
+(
     fvc::ddt(Ua)
   + fvc::div(phia, Ua)
-  - fvc::div(phia)*Ua;
+  - fvc::div(phia)*Ua
+);
 
-volVectorField DDtUb =
+volVectorField DDtUb
+(
     fvc::ddt(Ub)
   + fvc::div(phib, Ub)
-  - fvc::div(phib)*Ub;
+  - fvc::div(phib)*Ub
+);
 
 
 Info<< "Calculating field g.h\n" << endl;

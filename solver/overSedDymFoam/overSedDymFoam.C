@@ -30,35 +30,28 @@ Description
 
     Reference:
     \verbatim
-        Version 2.0:
         Chauchat J., Cheng Z., Nagel T., Bonamy C., & Hsu T-J. (2017).
         SedFoam-2.0: a 3D two-phase flow numerical model for sediment transport
         Geosci. Model Dev. Discuss.
         http://dx.doi.org/10.5194/gmd-2017-101
     \endverbatim
 
+Version
+    3.1
+
+Author
+    Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Rémi Chassagne,
+    Tim Nagel, Zhen Cheng, Tian-Jian Hsu and Eduard Puig Montella.
+
+Date
+    June 01, 2021
 
 \*---------------------------------------------------------------------------*/
-/**
- * \file sedFoam.C
- * \brief 2 phases Solver
- * \author Julien Chauchat, Cyrille Bonamy, Antoine Mathieu, Tim Nagel,
-           Zhen Cheng, Tian-Jian Hsu and Eduard Puig Montella.
- * \version 3.1
- * \date September 16, 2019
- *
- * Solver for a system of 2 phases with one phase dispersed
- *
- */
-/*
-* Changelog [Higuera]
-* December 10, 2018 - Adapted to compile automatically with OpenFOAM 6.
-*/
 
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
 #include "singlePhaseTransportModel.H"
-#include "PhaseIncompressibleTurbulenceModel.H"
+#include "sedIncompressibleTurbulenceModel.H"
 
 #include "symmetryFvPatchFields.H"
 #include "fixedFluxPressureFvPatchScalarField.H"
@@ -132,6 +125,14 @@ int main(int argc, char *argv[])
                << endl;
        }
     }
+    // Test on granular stress model
+    if (kineticTheory.on() && granularRheology.on())
+    {
+        Info<< "\nKinetic theory and granular rheology are set on." << endl;
+        Info<< " This option is not supported!" << endl;
+    }
+    
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
 
@@ -182,7 +183,7 @@ int main(int argc, char *argv[])
                 Ufb.boundaryFieldRef()[patchI] =
                     Uintb.boundaryField()[patchI];
             }
-
+            
             phia = mesh.Sf() & Ufa;
             phib = mesh.Sf() & Ufb;
 
@@ -191,8 +192,10 @@ int main(int argc, char *argv[])
             (
                 localMin<scalar>(mesh).interpolate(cellMask)
             );
+
             phia *= faceMask;
             phib *= faceMask;
+
             Ua *= cellMask;
             Ub *= cellMask;
         // Make the flux relative to the mesh motion
@@ -227,17 +230,14 @@ int main(int argc, char *argv[])
         {
             #include "alphaEqn.H"
             #include "liftDragCoeffs.H"
+  MRF.makeAbsolute(phia);
 
-//          Compute the Kinetic Theory parameters: nuEffa and lambdaUa from the
-//          solution of the Granular temperature equation
-            #include "callKineticTheory.H"
+//          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
+//             from Kinetic Theory of granular flows or mu(I) rheology
+            #include "callGranularStress.H"
+  MRF.makeRelative(phia);
 
-//          Compute the contact pressure pff and the frictional viscosity nuFra
-//          from a Coulomb model if using the kinetic theory
-//          and from the mu(I) rheology if using the granular rheology
-            #include "callFrictionStress.H"
-Info << "pass callfric" << endl;
-//          Create the momentum balance equations for both phases a and b
+//          Assemble the momentum balance equations for both phases a and b
             #include "UEqns.H"
 
 Info << "pass UEqn" << endl;

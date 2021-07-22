@@ -29,6 +29,7 @@ License
       + fvc::div(phia, Ua)
       - fvc::div(phia)*Ua
     );
+    MRF.addAcceleration(Ua, DDtUa);
 
     DDtUb =
     (
@@ -36,4 +37,5 @@ License
       + fvc::div(phib, Ub)
       - fvc::div(phib)*Ub
     );
+    MRF.addAcceleration(Ub, DDtUb);
 }

@@ -43,6 +43,8 @@ surfaceScalarField phiRa
    /fvc::interpolate(alpha+ alphaSmall)
 );
 
+MRF.correctBoundaryVelocity(Ua);
+
 // Assemble momentum balance equation for phase a
 fvVectorMatrix UaEqn
 (
@@ -50,6 +52,7 @@ fvVectorMatrix UaEqn
     (
         fvm::ddt(Ua)
       + fvm::div(phia, Ua, "div(phia,Ua)")
+      + MRF.DDt(Ua)
       - fvm::Sp(fvc::div(phia), Ua)
     )
 // effective stress term from dispersed phase
@@ -72,6 +75,8 @@ surfaceScalarField phiRb
    /fvc::interpolate(beta)
 );
 
+MRF.correctBoundaryVelocity(Ub);
+
 // Assemble momentum balance equation for phase b
 fvVectorMatrix UbEqn
 (
@@ -79,6 +84,7 @@ fvVectorMatrix UbEqn
     (
         fvm::ddt(Ub)
       + fvm::div(phib, Ub, "div(phib,Ub)")
+      + MRF.DDt(Ub)
       - fvm::Sp(fvc::div(phib), Ub)
     )
   - fvm::laplacian(nuEffb, Ub)

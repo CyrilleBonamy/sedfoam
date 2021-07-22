@@ -26,8 +26,8 @@ License
     word scheme("div(phi,alpha)");
     word schemer("div(phir,alpha)");
 
-    surfaceScalarField phic("phic", phi);
-    surfaceScalarField phir("phir", phia - phib);
+    surfaceScalarField phic("phic", MRF.absolute(phi));
+    surfaceScalarField phir("phir", MRF.absolute(phia - phib));
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {
@@ -35,7 +35,7 @@ License
         (
              fvm::ddt(alpha)
            + fvm::div(phic, alpha, scheme)
-           + fvm::div(-fvc::flux(-phir, (1-alpha), schemer), alpha, schemer)
+           + fvm::div(-fvc::flux(-phir, (1.0-alpha), schemer), alpha, schemer)
         );
 
         alphaEqn.relax();
