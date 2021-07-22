@@ -1,32 +1,29 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 1991-2010 OpenCFD Ltd.
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
     Foam::granularRheologyModel
 
 Description
     Dense granular-flow rheology model for particle phase stress
-    
+
     References:
     \verbatim
         GDRmidi (2004).
@@ -72,12 +69,12 @@ class granularRheologyModel
 
     const volScalarField& alpha_;
     const surfaceScalarField& phia_;
-    volScalarField pa_new_value;
     const dimensionedScalar& rhoa_;
     const dimensionedScalar& da_;
-
     const dimensionedScalar& rhob_;
     const dimensionedScalar& nub_;
+
+    volScalarField pa_new_value;
 
     //- dictionary holding the modeling info
     IOdictionary granularRheologyProperties_;
@@ -93,7 +90,7 @@ class granularRheologyModel
 
     //- use dilatancy model or not.
     Switch granularDilatancy_;
-    
+
     autoPtr<granularRheologyModels::FrictionModel> FrictionModel_;
     autoPtr<granularRheologyModels::PPressureModel> PPressureModel_;
     autoPtr<granularRheologyModels::FluidViscosityModel> FluidViscosityModel_;
@@ -118,7 +115,7 @@ class granularRheologyModel
 
     //- Bulk viscosity amplification factor
     const dimensionedScalar BulkFactor_;
-    
+
     // critical volume fraction
     const dimensionedScalar alpha_c_;
 
@@ -133,16 +130,10 @@ class granularRheologyModel
 
     //- Minimum relaxation timescale
     const dimensionedScalar tau_inv_min_;
-    
+
     //- The friction coefficient
     volScalarField muI_;
 
-    ////- The  dilatancy angle
-    volScalarField delta_;
-
-    //- Total particle  pressure
-    volScalarField p_p_total_;
-    
     //- The granular viscosity
     volScalarField mua_;
 
@@ -152,9 +143,15 @@ class granularRheologyModel
     //- The granular pressure
     volScalarField pa_;
 
+    //- Total particle  pressure
+    volScalarField p_p_total_;
+
+    ////- The  dilatancy angle
+    volScalarField delta_;
+
     //- Fluid Effective viscosity (viscous contribution)
     volScalarField nuvb_;
-    
+
     //-Viscous number
     volScalarField I_;
 

@@ -1,25 +1,22 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
     Foam::RASModels::twophaseMixingLengthConst
@@ -54,6 +51,11 @@ Description
         }
     \endverbatim
 
+    This file is in the \dir turbulenceModels/RAS/twophaseMixingLengthConst
+    subdirectory
+    inside the \dir turbulenceModels/RAS subdirectory
+    inside the \dir turbulenceModels subdirectory
+
 SourceFiles
     twophaseMixingLengthConst.C
 
@@ -81,33 +83,22 @@ class twophaseMixingLengthConst
 :
     public eddyViscosity<RASModel<BasicTurbulenceModel>>
 {
-    // Private Member Functions
-
-        // Disallow default bitwise copy construct and assignment
-        twophaseMixingLengthConst(const twophaseMixingLengthConst&);
-        void operator=(const twophaseMixingLengthConst&);
-
-
 protected:
 
-    // Protected data
+    // Fields
+    volScalarField k_;
+    volScalarField epsilon_;
 
-        // Dictionary
-
-            IOdictionary twophaseRASProperties_;
-
-        // Model coefficients
-            dimensionedScalar expoLM_;
-            dimensionedScalar alphaMaxLM_;
-            dimensionedScalar kappaLM_;
-
-
-        // Fields
-            volScalarField k_;
-            volScalarField epsilon_;
 
     // Protected Member Functions
+
         virtual void correctNut();
+
+        //- No copy construct
+        twophaseMixingLengthConst(const twophaseMixingLengthConst&) = delete;
+
+        //- No copy assignment
+        void operator=(const twophaseMixingLengthConst&) = delete;
 
 
 public:
@@ -122,33 +113,29 @@ public:
 
     // Constructors
 
-        //- Construct from components
-        twophaseMixingLengthConst
-        (
-            const alphaField& alpha,
-            const rhoField& rho,
-            const volVectorField& U,
-            const surfaceScalarField& alphaRhoPhi,
-            const surfaceScalarField& phi,
-            const transportModel& transport,
-            const word& propertiesName = turbulenceModel::propertiesName,
-            const word& type = typeName
-        );
+    //- Construct from components
+    twophaseMixingLengthConst
+    (
+        const alphaField& alpha,
+        const rhoField& rho,
+        const volVectorField& U,
+        const surfaceScalarField& alphaRhoPhi,
+        const surfaceScalarField& phi,
+        const transportModel& transport,
+        const word& propertiesName = turbulenceModel::propertiesName,
+        const word& type = typeName
+    );
 
 
     //- Destructor
-    #if (OFVERSION < 220 and OFVERSION >= 200) or OFVERSION == 00
-        virtual ~twophaseMixingLengthConst() = default;
-    #else
-        virtual ~twophaseMixingLengthConst()
-        {}
-    #endif
+    virtual ~twophaseMixingLengthConst()
+    {}
 
 
     // Member Functions
 
-        //- Read RASProperties dictionary
-        virtual bool read();
+    //- Read RASProperties dictionary
+    virtual bool read();
 
 
         //- Return the turbulence kinetic energy
@@ -162,6 +149,7 @@ public:
         {
             return epsilon_;
         }
+
         virtual tmp<volScalarField> omega() const
         {
             return tmp<volScalarField>
@@ -189,6 +177,7 @@ public:
 
 } // End namespace RASModels
 } // End namespace Foam
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository

@@ -1,31 +1,27 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
-
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
 // if alpha < alphaSmall then set Ua = Ub
 if (ClipUa.value()==1)
 {
-    surfaceScalarField alphaf = fvc::interpolate(alpha);
+    surfaceScalarField alphaf(fvc::interpolate(alpha));
     forAll(alpha, cell)
     {
         if (alpha[cell]<alphaSmall.value())
@@ -46,12 +42,12 @@ if (ClipUa.value()==1)
 if (InitFreeze.value()==1)
 {
 // in this way the bed is immobile in streamwise
-    volScalarField temp = Ua & gravity;
+    volScalarField temp(Ua & gravity);
 // extract vertical component of velocity component,we get ( 0 ,0,w)
-    volVectorField Uatemp = temp*gravity/magSqr(gravity);
+    volVectorField Uatemp(temp*gravity/magSqr(gravity));
 
-    scalar indv1 = (vector(0, 1, 0) & gravity.value());
-    scalar indv2 = (vector(0, 0, 1) & gravity.value());
+    scalar indv1((vector(0, 1, 0) & gravity.value()));
+    scalar indv2((vector(0, 0, 1) & gravity.value()));
 
     int ind = 0;
     if (indv1 != 0) {ind = 1;}
@@ -75,14 +71,14 @@ if (InitFreeze.value()==1)
 if (InitFreeze.value()==2)
 {
 // in this way the bed is immobile in streamwise
-    volScalarField temp = Ua & gravity;
+    volScalarField temp(Ua & gravity);
 // extract vertical component of velocity component,we get ( 0 ,0,w)
-    volVectorField Uatemp = temp*gravity/magSqr(gravity);
+    volVectorField Uatemp(temp*gravity/magSqr(gravity));
 // extract spanwise component of velocity, we get ( 0,v,0)
-    volVectorField Uatemp2 = (Ua & vector(0, 1, 0))*vector(0, 1, 0);
+    volVectorField Uatemp2((Ua & vector(0, 1, 0))*vector(0, 1, 0));
 
-    scalar indv1 = (vector(0, 1, 0) & gravity.value());
-    scalar indv2 = (vector(0, 0, 1) & gravity.value());
+    scalar indv1((vector(0, 1, 0) & gravity.value()));
+    scalar indv2((vector(0, 0, 1) & gravity.value()));
 
     int ind = 0;
     if (indv1 != 0) {ind = 1;}

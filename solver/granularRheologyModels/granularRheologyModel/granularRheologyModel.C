@@ -1,25 +1,22 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 1991-2010 OpenCFD Ltd.
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
 
@@ -45,9 +42,10 @@ Foam::granularRheologyModel::granularRheologyModel
     phia_(phasea.phi()),
     rhoa_(phasea.rho()),
     da_(phasea.d()),
-    pa_new_value(pa),
     rhob_(phaseb.rho()),
     nub_(phaseb.nu()),
+
+    pa_new_value(pa),
 
     granularRheologyProperties_
     (
@@ -60,8 +58,14 @@ Foam::granularRheologyModel::granularRheologyModel
             IOobject::NO_WRITE
         )
     ),
-    granularRheology_(granularRheologyProperties_.lookup("granularRheology")),
-    granularDilatancy_(granularRheologyProperties_.lookup("granularDilatancy")),
+    granularRheology_
+    (
+        granularRheologyProperties_.get<Switch>("granularRheology")
+    ),
+    granularDilatancy_
+    (
+        granularRheologyProperties_.get<Switch>("granularDilatancy")
+    ),
     FrictionModel_
     (
         granularRheologyModels::FrictionModel::New
@@ -85,7 +89,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     alphaMaxG_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "alphaMaxG",
             dimensionedScalar("alphaMaxG",
@@ -95,7 +99,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     mus_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "mus",
             dimensionedScalar("mus",
@@ -105,7 +109,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     mu2_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "mu2",
             dimensionedScalar("mu2",
@@ -115,7 +119,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     I0_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "I0",
             dimensionedScalar("I0",
@@ -125,7 +129,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     Bphi_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "Bphi",
             dimensionedScalar("Bphi",
@@ -135,7 +139,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     n_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "n",
             dimensionedScalar("n",
@@ -145,7 +149,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     BulkFactor_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
                 "BulkFactor",
                 dimensionedScalar("BulkFactor",
@@ -155,7 +159,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     alpha_c_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
                 "alpha_c",
                 dimensionedScalar("alpha_c",
@@ -163,10 +167,10 @@ Foam::granularRheologyModel::granularRheologyModel
                     0.585)
         )
     ),
-    
+
     K_dila_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
                 "K_dila",
                 dimensionedScalar("K_dila",
@@ -176,7 +180,7 @@ Foam::granularRheologyModel::granularRheologyModel
     ),
     relaxPa_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "relaxPa",
             dimensionedScalar("relaxPa",
@@ -184,24 +188,24 @@ Foam::granularRheologyModel::granularRheologyModel
                           1)
         )
     ),
-    tau_inv_min_
-    (
-        granularRheologyProperties_.lookupOrDefault
-        (
-            "tau_inv_min",
-            dimensionedScalar("tau_inv_min",
-                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
-                          1e-12)
-        )
-    ),
     PaMin_
     (
-        granularRheologyProperties_.lookupOrDefault
+        granularRheologyProperties_.getOrDefault
         (
             "PaMin",
             dimensionedScalar("PaMin",
                           dimensionSet(0, 1, 0, 0, 0, 0, 0),
                           1e-6)
+        )
+    ),
+    tau_inv_min_
+    (
+        granularRheologyProperties_.getOrDefault
+        (
+            "tau_inv_min",
+            dimensionedScalar("tau_inv_min",
+                          dimensionSet(0, 0, -1, 0, 0, 0, 0),
+                          1e-12)
         )
     ),
     muI_
@@ -284,8 +288,9 @@ Foam::granularRheologyModel::granularRheologyModel
         alpha_.mesh(),
         dimensionedScalar("zero", alpha_.dimensions(), 0.0)
     ),
-     nuvb_
-     (
+
+    nuvb_
+    (
         IOobject
         (
             "nuvb",
@@ -296,7 +301,7 @@ Foam::granularRheologyModel::granularRheologyModel
         ),
         alpha_.mesh(),
         dimensionedScalar("zero", dimensionSet(0, 2, -1, 0, 0), 0.0)
-     ),
+    ),
     I_
     (
         IOobject
@@ -329,7 +334,7 @@ void Foam::granularRheologyModel::solve
     const dimensionedScalar& Dsmall
 )
 {
-    if (not granularRheology_)
+    if (granularRheology_ == false)
     {
         return;
     }
@@ -343,8 +348,8 @@ void Foam::granularRheologyModel::solve
     //
     // compute the particulate velocity shear rate
     //
-    volScalarField magD2 = pow(magD, 2);
-    
+    volScalarField magD2(pow(magD, 2));
+
     //
     // Shear induced particulate pressure
     //
@@ -357,7 +362,7 @@ void Foam::granularRheologyModel::solve
     // Relaxing shear induced particulate pressure
     //  relaxPa_ controls the relaxation of pa. Low values lead to relaxed pa
     //  whereas large value are prone to numerical error
-    volScalarField tau_inv_par = relaxPa_*alpha_*magD;
+    volScalarField tau_inv_par(relaxPa_*alpha_*magD);
     tau_inv_par.max(tau_inv_min_);
 
     fvScalarMatrix paEqn
@@ -387,14 +392,25 @@ void Foam::granularRheologyModel::solve
     //  Compute the inertial/viscous number
     I_ = FrictionModel_->I(p_p_total_, rhoa_, da_, rhob_, nub_, magD);
 
-// Dilatancy model
+    // Dilatancy model
     if (granularDilatancy_)
     {
     //delta_ = DilatancyModel_->delta(K_dila_, alpha_c_, alpha_, magD,
-// da_, rhob_, nub_, p_p_total_, PaMin);
-        volScalarField alphaEq_ = PPressureModel_->alphaEq
-          (p_p_total_, Bphi_, rhoa_, da_, rhob_, nub_, magD, alpha_c_);
-
+    // da_, rhob_, nub_, p_p_total_, PaMin);
+        volScalarField alphaEq_
+        (
+            PPressureModel_->alphaEq
+            (
+                p_p_total_,
+                Bphi_,
+                rhoa_,
+                da_,
+                rhob_,
+                nub_,
+                magD,
+                alpha_c_
+            )
+        );
         delta_ = K_dila_*(alpha_ - alphaEq_);
 
         delta_.min( 0.5);

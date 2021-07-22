@@ -1,9 +1,16 @@
 #!/bin/sh
-cd ${0%/*} || exit 1    # run from this directory
-set -x
+cd "${0%/*}" || exit                            # Run from this directory
+#------------------------------------------------------------------------------
+
+if ! command -v wclean >/dev/null
+then
+    echo "$0: The OpenFOAM environment not set?" 1>&2
+    echo "    no 'wclean' command" 1>&2
+    exit 2
+fi
 
 TurbulenceModels/Allwclean $*
 solver/Allwclean $*
 solverMULES/Allwclean $*
 
-# ----------------------------------------------------------------- end-of-file
+#------------------------------------------------------------------------------

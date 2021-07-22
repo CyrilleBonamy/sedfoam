@@ -1,13 +1,12 @@
 sedfoam
 =======
 
-[![Release](https://img.shields.io/badge/release-3.1-blue.svg)](http://github.com/SedFoam/sedfoam)
+[![Release](https://img.shields.io/badge/release-3.2-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![sedFoam](https://circleci.com/gh/SedFoam/sedfoam.svg?style=shield)](https://circleci.com/gh/SedFoam/sedfoam)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b9ad60ec6171496290c336697426cd48)](https://www.codacy.com/gh/SedFoam/sedfoam/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SedFoam/sedfoam&amp;utm_campaign=Badge_Grade)
+[![OpenFOAM v21xx](https://img.shields.io/badge/OpenFOAM-v21xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v20xx](https://img.shields.io/badge/OpenFOAM-v20xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v19xx](https://img.shields.io/badge/OpenFOAM-v19xx-brightgreen.svg)](https://openfoam.com/)
-[![OpenFOAM v18xx](https://img.shields.io/badge/OpenFOAM-v18xx-brightgreen.svg)](https://openfoam.com/)
-[![OpenFOAM v17xx](https://img.shields.io/badge/OpenFOAM-v17xx-brightgreen.svg)](https://openfoam.com/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.836642.svg)](https://doi.org/10.5281/zenodo.836642)
 
 This repository provides the SedFoam solver.
@@ -72,13 +71,15 @@ Developers
 *   Tim Nagel
 *   Antoine Mathieu
 *   Eduard Puig Montella
-*   Rémi Chassagne
+*   Rémi Chassagn
+*   Ali Salimi-Tarazouj
+*   Benjamin Tsai
 
 Acknowledgements
 ----------------
 
-OpenFOAM is free, open source software for computational fluid dynamics (CFD),
-developed primarily by [CFD Direct](http://cfd.direct), on behalf of the
-[OpenFOAM](http://openfoam.org) Foundation.
+[OpenFOAM](https://www.openfoam.com) is the free, open source CFD
+software developed primarily by OpenCFD Ltd since 2004.
+The OpenFOAM trademark is owned by OpenCFD Ltd.
 
 ![scour image](https://i.ibb.co/pWjZqd4/scour3-D-cylinder.jpg)

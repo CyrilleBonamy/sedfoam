@@ -1,25 +1,22 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
 
@@ -76,7 +73,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C3ep_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C3ep",
             this->coeffDict_,
@@ -85,7 +82,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C4ep_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C4ep",
             this->coeffDict_,
@@ -94,7 +91,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     KE2_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE2",
             this->coeffDict_,
@@ -103,7 +100,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     KE4_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE4",
             this->coeffDict_,
@@ -112,7 +109,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     Cmu_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Cmu",
             this->coeffDict_,
@@ -121,7 +118,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C1_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C1",
             this->coeffDict_,
@@ -130,7 +127,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     C2_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C2",
             this->coeffDict_,
@@ -139,7 +136,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     nutMax_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "nutMax",
             this->coeffDict_,
@@ -148,7 +145,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     alphak_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphak",
             this->coeffDict_,
@@ -157,7 +154,7 @@ twophasekEpsilon<BasicTurbulenceModel>::twophasekEpsilon
     ),
     alphaEps_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaEps",
             this->coeffDict_,
@@ -219,17 +216,15 @@ bool twophasekEpsilon<BasicTurbulenceModel>::read()
         alphaEps_.readIfPresent(this->coeffDict_);
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 
 template<class BasicTurbulenceModel>
 void twophasekEpsilon<BasicTurbulenceModel>::correct()
 {
-    if (not this->turbulence_)
+    if (!this->turbulence_)
     {
         return;
     }
@@ -244,7 +239,7 @@ void twophasekEpsilon<BasicTurbulenceModel>::correct()
 
     volScalarField divU(fvc::div(fvc::absolute(this->phi(), U)));
 
-    volTensorField GradU = fvc::grad(U);
+    volTensorField GradU(fvc::grad(U));
     volSymmTensorField Sij(symm(GradU));
 
     //volScalarField::Internal G

@@ -1,31 +1,27 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
-
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 \*---------------------------------------------------------------------------*/
 
 dimensionedScalar SUSread
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "SUS",
         dimensionedScalar("SUS", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -33,7 +29,7 @@ dimensionedScalar SUSread
 );
 dimensionedScalar SUS_I
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "SUS_I",
         dimensionedScalar("SUS_I", dimensionSet(0, 0, 0, 0, 0, 0, 0), 1)
@@ -42,7 +38,7 @@ dimensionedScalar SUS_I
 
 dimensionedScalar SUS_A
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "SUS_A",
         dimensionedScalar("SUS_A", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -65,12 +61,12 @@ volScalarField SUS
 
 Switch SUSlocal
 (
-    twophaseRASProperties.lookupOrDefault("SUSlocal", false)
+    twophaseRASProperties.getOrDefault("SUSlocal", false)
 );
 
 dimensionedScalar Usmall
 (
-    transportProperties.lookupOrDefault
+    transportProperties.getOrDefault
     (
         "Usmall",
         dimensionedScalar("Usmall", dimensionSet(0, 1, -1, 0, 0, 0, 0), 1e-6)
@@ -79,7 +75,7 @@ dimensionedScalar Usmall
 
 dimensionedScalar B
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "B",
         dimensionedScalar("B", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0.25)
@@ -88,7 +84,7 @@ dimensionedScalar B
 
 dimensionedScalar KE1
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "KE1",
         dimensionedScalar("KE1", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -96,7 +92,7 @@ dimensionedScalar KE1
 );
 dimensionedScalar Tpsmall
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "Tpsmall",
         dimensionedScalar("Tpsmall", dimensionSet(0, 0, 1, 0, 0, 0, 0), 1e-6)
@@ -104,7 +100,7 @@ dimensionedScalar Tpsmall
 );
 dimensionedScalar KE3
 (
-    twophaseRASProperties.lookupOrDefault
+    twophaseRASProperties.getOrDefault
     (
         "KE3",
         dimensionedScalar("KE3", dimensionSet(0, 0, 0, 0, 0, 0, 0), 0)
@@ -123,15 +119,15 @@ volScalarField tmfexp
     -B*rhoa*6.0/(max(beta*K, Tpsmall))
 );
 
-volScalarField rtemp = (Ub-Ua) & gravity;
-volVectorField Urtemp = Ub-Ua;
+volScalarField rtemp((Ub-Ua) & gravity);
+volVectorField Urtemp(Ub-Ua);
 if (Foam::mag(gravity).value() != 0)
 {
      Urtemp = rtemp*gravity/magSqr(gravity);
 }
 
-volVectorField Urh = (Ub-Ua) - Urtemp;
-volScalarField ESD1 = (K/rhob)*(fvc::grad(alpha)) & Urh;
+volVectorField Urh((Ub-Ua) - Urtemp);
+volScalarField ESD1((K/rhob)*(fvc::grad(alpha)) & Urh);
 
 volScalarField ESD3
 (

@@ -1,25 +1,22 @@
 /*---------------------------------------------------------------------------*\
-  =========                 |
-  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 2011-2016 OpenFOAM Foundation
-     \\/     M anipulation  |
--------------------------------------------------------------------------------
-License
-    This file is part of OpenFOAM.
+Copyright (C) 2015 Cyrille Bonamy, Julien Chauchat, Tian-Jian Hsu
+                   and contributors
 
-    OpenFOAM is free software: you can redistribute it and/or modify it
+License
+    This file is part of SedFOAM.
+
+    SedFOAM is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    SedFOAM is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
     for more details.
 
     You should have received a copy of the GNU General Public License
-    along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+    along with SedFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 \*---------------------------------------------------------------------------*/
 
@@ -80,7 +77,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     popeCorrection_
     (
-        Switch::lookupOrAddToDict
+        Switch::getOrAddToDict
         (
             "popeCorrection",
             this->coeffDict_,
@@ -89,7 +86,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     writeTke_
     (
-        Switch::lookupOrAddToDict
+        Switch::getOrAddToDict
         (
             "writeTke",
             this->coeffDict_,
@@ -98,7 +95,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     C3om_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C3om",
             this->coeffDict_,
@@ -107,7 +104,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     C4om_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "C4om",
             this->coeffDict_,
@@ -116,7 +113,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     KE2_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE2",
             this->coeffDict_,
@@ -125,7 +122,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     KE4_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "KE4",
             this->coeffDict_,
@@ -134,7 +131,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     Cmu_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Cmu",
             this->coeffDict_,
@@ -143,7 +140,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     betaOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "betaOmega",
             this->coeffDict_,
@@ -152,7 +149,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     nutMax_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "nutMax",
             this->coeffDict_,
@@ -161,7 +158,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     Clim_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "Clim",
             this->coeffDict_,
@@ -170,7 +167,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     sigmad_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "sigmad",
             this->coeffDict_,
@@ -179,7 +176,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     alphaKOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaKOmega",
             this->coeffDict_,
@@ -188,7 +185,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     alphaOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaOmega",
             this->coeffDict_,
@@ -197,7 +194,7 @@ twophasekOmega<BasicTurbulenceModel>::twophasekOmega
     ),
     alphaOmegaOmega_
     (
-        dimensioned<scalar>::lookupOrAddToDict
+        dimensioned<scalar>::getOrAddToDict
         (
             "alphaOmegaOmega",
             this->coeffDict_,
@@ -259,22 +256,21 @@ bool twophasekOmega<BasicTurbulenceModel>::read()
 
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 
 template<class BasicTurbulenceModel>
 void twophasekOmega<BasicTurbulenceModel>::correct()
 {
-    if (not this->turbulence_)
+    if (!this->turbulence_)
     {
         return;
     }
 
     // Local references
+    // WARNING : this->alpha_ gives the concentration of FLUID phase
     const alphaField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
@@ -285,26 +281,26 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
 
     volScalarField divU(fvc::div(fvc::absolute(this->phi(), U)));
 
-    volTensorField GradU = fvc::grad(U);
-    volSymmTensorField Sij(symm(GradU));
+    volSymmTensorField Sij(symm(fvc::grad(U)));
 
     volScalarField G
     (
         this->GName(),
-        nut*2*magSqr(symm(GradU))
+        nut*2*magSqr(Sij)
     );
 
     // Update omega and G at the wall
     omega_.boundaryFieldRef().updateCoeffs();
 
-    volTensorField Omij(-skew(GradU));
+    volTensorField Omij(-skew(fvc::grad(U)));
     volVectorField Gradk(fvc::grad(k_));
     volVectorField Gradomega(fvc::grad(omega_));
     volScalarField alphadCheck_(Gradk & Gradomega);
 
     const volScalarField CDkOmega
     (
-    sigmad_*pos(0.15-alpha)*pos(alphadCheck_)*(alphadCheck_)/omega_
+    sigmad_*pos(scalar(0.15)-(scalar(1)-alpha))*pos(alphadCheck_)
+    *(alphadCheck_)/omega_
     );
 
 
