@@ -270,6 +270,7 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
     }
 
     // Local references
+    // WARNING : this->alpha_ gives the concentration of FLUID phase
     const alphaField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
@@ -298,7 +299,8 @@ void twophasekOmega<BasicTurbulenceModel>::correct()
 
     const volScalarField CDkOmega
     (
-    sigmad_*pos(0.15-alpha)*pos(alphadCheck_)*(alphadCheck_)/omega_
+    sigmad_*pos(scalar(0.15)-(scalar(1)-alpha))*pos(alphadCheck_)
+    *(alphadCheck_)/omega_
     );
 
 

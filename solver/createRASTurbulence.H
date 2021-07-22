@@ -22,17 +22,17 @@ License
 
 singlePhaseTransportModel phasebTransport(Ub, phib);
 
-surfaceScalarField alphacf("alphacf", fvc::interpolate(alpha));
-surfaceScalarField alphaPhic("alphaPhic", alphacf*phib);
+surfaceScalarField betacf("betacf", fvc::interpolate(beta));
+surfaceScalarField betaPhic("betaPhic", betacf*phib);
 
 autoPtr<sedIncompressibleTurbulenceModel<singlePhaseTransportModel>>
 turbulenceb
 (
     sedIncompressibleTurbulenceModel<singlePhaseTransportModel>::New
     (
-        alpha,
+        beta,
         Ub,
-        alphaPhic,
+        betaPhic,
         phib,
         phasebTransport
     )

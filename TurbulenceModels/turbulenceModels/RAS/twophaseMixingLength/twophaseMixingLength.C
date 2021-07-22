@@ -172,6 +172,7 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
     );
 
 // Local references
+// WARNING : this->alpha_ gives the concentration of fluid phase
     const volScalarField& alpha = this->alpha_;
     const volVectorField& U = this->U_;
     volScalarField& nut = this->nut_;
@@ -208,8 +209,12 @@ void twophaseMixingLength<BasicTurbulenceModel>::correct()
               + kappaLMs*max
               (
                   scalar(1.0)
-                - Foam::pow(min(alpha[cellI]/alphaMaxLMs, scalar(1.0)),
-                            expoLM), 0.
+                - Foam::pow
+                  (
+                      min((scalar(1)-alpha[cellI])/alphaMaxLMs, scalar(1.0)),
+                      expoLM
+                  ),
+                  0.
               )*dY;
         Lm = LmPhi;
         nut[cellI] = pow(Lm, 2)*magD[cellI];
