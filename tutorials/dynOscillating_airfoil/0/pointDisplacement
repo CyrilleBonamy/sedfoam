@@ -1,0 +1,67 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       pointVectorField;
+    object      pointDisplacement;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    inlet
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+
+    outlet
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+
+    solid
+    {
+        type            fixedValue;
+        value           $internalField;
+    }
+    flexible
+    {
+        type            fixedValue;
+        value           $internalField;
+    }
+    
+    top
+    {
+        type            slip;
+    }
+
+    down
+    {
+        type            slip;
+    }
+    front
+    {
+        type            empty;
+    }
+    rear
+    {
+        type            empty;
+    }
+    AMIext
+    {
+        type           cyclicAMI;
+    }
+    AMI
+    {
+        type           cyclicAMI;
+    }
+
+}
+
+// ************************************************************************* //

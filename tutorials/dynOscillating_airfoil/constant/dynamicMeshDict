@@ -1,0 +1,34 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      dynamicMeshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+dynamicFvMesh dynamicMotionSolverFvMesh;
+
+
+   solver      solidBody;
+   solidBodyCoeffs{
+   cellZone rot;
+
+   solidBodyMotionFunction oscillatingRotatingMotion;
+
+    oscillatingRotatingMotionCoeffs
+    {
+        origin        (0 0 0);
+        omega         18.800674168700137; // rad/s
+        amplitude       (0 0.0 20.0);
+    }
+
+}
+
+
+
+
+

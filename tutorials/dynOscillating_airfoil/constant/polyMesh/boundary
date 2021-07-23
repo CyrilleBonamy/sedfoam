@@ -1,0 +1,97 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       polyBoundaryMesh;
+    arch        "LSB;label=32;scalar=64";
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+10
+(
+    rear
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          15907;
+        startFace       30135;
+    }
+    top
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          72;
+        startFace       46042;
+    }
+    outlet
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          48;
+        startFace       46114;
+    }
+    down
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          72;
+        startFace       46162;
+    }
+    inlet
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          48;
+        startFace       46234;
+    }
+    AMIext
+    {
+        type cyclicAMI;
+        neighbourPatch AMI;
+        matchTolerance  0.00001;
+        transform       noOrdering;
+        nFaces          150;
+        startFace       46282;
+    }
+    front
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          15907;
+        startFace       46432;
+    }
+    AMI
+    {
+        type cyclicAMI;
+        neighbourPatch AMIext;
+        matchTolerance  0.00001;
+        transform       noOrdering;
+        nFaces          150;
+        startFace       62339;
+    }
+    flexible
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          229;
+        startFace       62489;
+    }
+    solid
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          84;
+        startFace       62718;
+    }
+)
+
+// ************************************************************************* //

@@ -1,0 +1,87 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      Ua;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (2.95 0 0);
+
+boundaryField
+{
+    inlet
+    {
+        type            fixedValue;
+        value           $internalField;
+    }
+
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           uniform (0 0 0);
+    }
+
+    top
+    {
+      type            slip;
+  //      type         	zeroGradient;
+//        type            fixedValue;
+//        value           uniform (2.95 -0.521 0);
+        
+    }
+    down 
+    {
+        //type         	zeroGradient;
+       type            slip;
+//        type            inletOutlet;
+//        inletValue      uniform (0 0 0);
+//        value           uniform (0 0 0);
+        
+    }
+    rear
+    {
+        type            empty;
+    }
+
+    front
+    {
+        type            empty;
+    }
+
+    solid
+    {
+//        type            noSlip;
+       type            movingWallVelocity;
+        value           uniform (0 0 0);
+    }
+    flexible
+    {
+       type            movingWallVelocity;
+        value           uniform (0 0 0);
+    }
+    AMIext
+    {
+        type           cyclicAMI;
+        value           uniform (2.95 0 0);
+    }
+    AMI
+    {
+        type           cyclicAMI;
+        value           uniform (2.95 0 0);
+    }
+}
+
+
+// ************************************************************************* //

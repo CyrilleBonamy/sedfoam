@@ -1,0 +1,113 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+    ddtSchemes
+    {
+//        default Euler;
+//        default CrankNicolson  1;
+        default backward;
+    }
+
+gradSchemes
+{
+        default         Gauss linear;
+
+    grad(k)		cellLimited Gauss linear 1;
+    grad(epsilon)		cellLimited Gauss linear 1;
+    grad(omega)		cellLimited Gauss linear 1;
+}
+
+divSchemes
+{
+
+// alphaEqn
+    div(phi,alpha)  Gauss limitedLinear01 1;
+    div(phir,alpha) Gauss limitedLinear01 1;
+// UEqn
+    div(phia,Ua)    Gauss limitedLinearV 1;
+    div(phib,Ub)    Gauss limitedLinearV 1;
+    div(phiRa,Ua)   Gauss limitedLinear 1;
+    div(phiRb,Ub)   Gauss limitedLinear 1;
+// pEqn
+    div(alpha,nu)   Gauss linear;
+// k and EpsilonEqn
+    div(phib,k)     Gauss limitedLinear 1;
+    div(betaPhic,k) Gauss limitedLinear 1;
+    div(phib,epsilon) Gauss limitedLinear 1;
+    div(phib,omega) Gauss limitedLinear 1;
+    div(betaPhic,omega) Gauss limitedLinear 1;
+// ThetaEqn
+    div(phi,Theta)  Gauss limitedLinear 1;
+// alphaPlastic
+    div(phia,alphaPlastic)  Gauss limitedLinear01 1;
+// pa
+    div(phia,pa_new_value)  Gauss limitedLinear 1;
+
+
+
+//    default         Gauss upwind phi;
+    default         none;
+}
+
+laplacianSchemes
+{
+    default         none;
+// alphaEqn
+    laplacian(alphaPpMag,alpha) Gauss linear limited corrected 0.5;
+// UEqn
+    laplacian(nuEffa,Ua) Gauss linear limited corrected 0.5;
+    laplacian(nuEffb,Ub) Gauss linear limited corrected 0.5;
+    laplacian(nuFra,Ua)  Gauss linear limited corrected 0.5;
+// pEqn
+    laplacian((rho*(1|A(U))),p_rbgh) Gauss linear limited corrected 0.5;
+// k and EpsilonEqn 
+    laplacian(DkEff,k) Gauss linear limited corrected 0.5;
+    laplacian(DkEff,beta) Gauss linear limited corrected 0.5;
+    laplacian(DomegaEff,omega) Gauss linear limited corrected 0.5;
+laplacian((alpha_b*DkEff),k)  Gauss linear limited corrected 0.5;
+    laplacian(DepsilonEff,epsilon) Gauss linear limited corrected 0.5;
+    laplacian(DepsilonEff,beta) Gauss linear limited corrected 0.5;
+//ThetaEqn
+    laplacian(kappa,Theta) Gauss linear limited corrected 0.5;
+
+    laplacian(diffusivity,cellDisplacement) Gauss linear limited corrected 0.33;
+laplacian((alpha_b*DomegaEff),omega) Gauss linear limited corrected 0.5;
+}
+
+interpolationSchemes
+{
+    default  linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+wallDist
+    {
+        method meshWave;
+    }
+
+fluxRequired
+{
+    default         no;
+    p_rbgh               ;
+}
+
+
+// ************************************************************************* //
