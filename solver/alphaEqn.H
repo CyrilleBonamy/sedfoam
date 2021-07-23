@@ -26,8 +26,8 @@ License
     word scheme("div(phi,alpha)");
     word schemer("div(phir,alpha)");
 
-    surfaceScalarField phic("phic", phi);
-    surfaceScalarField phir("phir", phia - phib);
+    surfaceScalarField phic("phic", MRF.absolute(phi));
+    surfaceScalarField phir("phir", MRF.absolute(phia - phib));
 
     for (int acorr=0; acorr<nAlphaCorr; acorr++)
     {

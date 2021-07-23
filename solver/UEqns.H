@@ -68,13 +68,13 @@ UaEqn.relax();
 UaEqn += fvm::Sp(beta/rhoa*K, Ua);
 //fvOptions.constrain(UaEqn());
 
+
 // Compute concentration gradient stress contribution on cell faces for phase b
 surfaceScalarField phiRb
 (
   - fvc::interpolate(nuEffb)*mesh.magSf()*(fvc::snGrad(beta))
-   /fvc::interpolate(beta)
+   /fvc::interpolate(beta+alphaSmall)
 );
-
 MRF.correctBoundaryVelocity(Ub);
 
 // Assemble momentum balance equation for phase b

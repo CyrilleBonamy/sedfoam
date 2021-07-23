@@ -75,23 +75,22 @@ License
     // PIMPLE algorithm loop
     while (pimple.correct())
     {
-        volVectorField HabyA = Ua;
-        //HabyA = rUaA*UaEqn.H();
-        HabyA = constrainHbyA(rUaA*UaEqn.H(), Ua, p_rbgh);
-        volVectorField HbbyA = Ub;
-        HbbyA = constrainHbyA(rUbA*UbEqn.H(), Ub, p_rbgh);
-
-        //HbbyA = rUbA*UbEqn.H();
+        // Compute predicted velocity of phase a and b at cell centers
+        volVectorField HabyA(Ua);
+        HabyA = rUaA*UaEqn.H();
+        volVectorField HbbyA(Ub);
+        HbbyA = rUbA*UbEqn.H();
 
 
-if (massFluxInterpolation)
-{
-    #include "interpolatedFaces.H"
-}
+
+//if (massFluxInterpolation)
+//{
+//    #include "interpolatedFaces.H"
+//}
 
         // Momentum fluxes computed on the faces for the particle phase phiDraga
         // and the fluid phase phiDragb
-        surfaceScalarField phiDraga =
+        surfaceScalarField phiDraga(
         faceMask*(
         // turbulent suspension term
            -(fvc::interpolate
@@ -131,9 +130,9 @@ if (massFluxInterpolation)
             )
           // mean pressure gradient
           + rUaAf*((gradPOSC/(tilt*rhob +(1.0-tilt)*rhoa)) & mesh.Sf())
-        );
+        ));
 
-        surfaceScalarField phiDragb =
+        surfaceScalarField phiDragb(
         faceMask*(
         // turbulent suspension term
             fvc::interpolate(SUS*(K/rhob)*turbulenceb->nut())*fvc::snGrad(alpha)
@@ -152,7 +151,7 @@ if (massFluxInterpolation)
           // Convective acceleration for 1D non-uniform simulation
           - rUbAf*fvc::interpolate(neg(alpha-0.3))*((gradConvAcc/rhob)
             & mesh.Sf())
-        );
+        ));
 
         //    fvOptions.makeRelative(phiHabyA);
         //    fvOptions.makeRelative(phiHbbyA);
@@ -198,13 +197,13 @@ if (massFluxInterpolation)
     );
 
         surfaceScalarField phiUa(
-        faceMask*(
-            (fvc::interpolate(HabyA) & mesh.Sf())) + faceMaskOld*(MRF.zeroFilter(rUaAf*fvc::ddtCorr(Ua, Ufa))
+        (
+            (fvc::interpolate(HabyA) & mesh.Sf())) + faceMaskOld*((rUaAf*fvc::ddtCorr(Ua, Ufa))
         ));
 
         surfaceScalarField phiUb(
-        faceMask*(
-            (fvc::interpolate(HbbyA) & mesh.Sf())) + faceMaskOld*(MRF.zeroFilter(rUbAf*fvc::ddtCorr(Ub, Ufb))
+        (
+            (fvc::interpolate(HbbyA) & mesh.Sf())) + faceMaskOld*((rUbAf*fvc::ddtCorr(Ub, Ufb))
         ));
 
         surfaceScalarField phiaHbyA(phiUa + phiDraga);
@@ -215,15 +214,15 @@ if (massFluxInterpolation)
         surfaceScalarField rAUKdb(fvc::interpolate(alpha/rhob*K*rUbA));
         // Compute predicted velocity fluxes at cell faces including
         //       including semi-implicit drag contribution
-        surfaceScalarField phiHbyA
-        (
-            alphaf*(phiaHbyA + rAUKda*MRF.absolute(phib))
-          + betaf*(phibHbyA + rAUKdb*MRF.absolute(phia))
-        );
-
 	MRF.makeRelative(phiaHbyA);
 	MRF.makeRelative(phibHbyA);
-	MRF.makeRelative(phiHbyA);
+        surfaceScalarField phiHbyA
+        (
+            alphaf*(phiaHbyA + faceMask*rAUKda*phib)
+          + betaf*(phibHbyA + faceMask*rAUKdb*phia)
+        );
+
+//	MRF.makeRelative(phiHbyA);
 //	 adjustPhi(phiHbyA, U, p_rbgh);
 
     //    surfaceScalarField phiHbyA = alphaf*phiaHbyA + betaf*phibHbyA;
@@ -251,7 +250,7 @@ if (massFluxInterpolation)
             /(mesh.magSf().boundaryField()*Dp.boundaryField())
         );
 
-    constrainPressure(p_rbgh, U, phiHbyA, Dp, MRF);
+//    constrainPressure(p_rbgh, U, phiHbyA, Dp, MRF);
 
 
         while (pimple.correctNonOrthogonal())
@@ -303,8 +302,8 @@ if (massFluxInterpolation)
                 (
                     HabyA + rUaA*fvc::reconstruct(phiDraga/rUaAf-SfGradp/rhoa)
                 );
-                Uas.correctBoundaryConditions();
-                Ubs.correctBoundaryConditions();
+                //Uas.correctBoundaryConditions();
+                //Ubs.correctBoundaryConditions();
                 volScalarField Da(beta/rhoa*K*rUaA);
                 volScalarField Db(alpha/rhob*K*rUbA);
                 U = cellMask*(alpha*(Uas + Da*Ub) + beta*(Ubs + Db*Ua));
@@ -343,7 +342,7 @@ if (massFluxInterpolation)
     Ufa += n*(phia/mesh.magSf() - (n & Ufa));
     Ufb += n*(phib/mesh.magSf() - (n & Ufb));
 }
-    fvc::makeRelative(phi, U);
+    //fvc::makeRelative(phi, U);
     fvc::makeRelative(phia, Ua);
     fvc::makeRelative(phib, Ub);
 

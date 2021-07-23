@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
         }
 
 
-        if (mesh.changing() && correctPhi)
+/*        if (mesh.changing() && correctPhi)
         {
             // Calculate absolute flux from the mapped surface velocity
             #include "correctPhi.H"
@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
         {
             #include "meshCourantNo.H"
         }
-
+*/
 
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
