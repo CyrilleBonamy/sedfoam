@@ -28,7 +28,7 @@ echo
 
 TurbulenceModels/Allwmake $targetType $*
 solver/Allwmake $targetType $*
-#solverMULES/Allwmake $targetType $*
+solverMULES/Allwmake $targetType $*
 
 
 # Some summary information

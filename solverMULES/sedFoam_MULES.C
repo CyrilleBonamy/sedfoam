@@ -50,6 +50,9 @@ Date
 
 #include "fvCFD.H"
 #include "CMULES.H"
+
+#include "dynamicFvMesh.H"
+
 #include "singlePhaseTransportModel.H"
 #include "sedIncompressibleTurbulenceModel.H"
 
@@ -75,9 +78,11 @@ int main(int argc, char *argv[])
  //   #include "postProcess.H"
     #include "setRootCase.H"
     #include "createTime.H"
-    #include "createMesh.H"
-    #include "createControl.H"
+    //#include "createMesh.H"
+    //#include "createControl.H"
 
+    #include "createDynamicFvMesh.H"
+    #include "createDyMControls.H"
 
     #include "readGravity.H"
     #include "createFields.H"
@@ -85,9 +90,11 @@ int main(int argc, char *argv[])
     #include "createFvOptions.H"
 
     #include "initContinuityErrs.H"
-    #include "createTimeControls.H"
+    //#include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
+
+    #include "createUfIfPresent.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     // Test on SUSlocal
@@ -130,6 +137,8 @@ int main(int argc, char *argv[])
         #include "alphaCourantNo.H"
         #include "setDeltaT.H"
 
+        #include "readDyMControls.H"
+
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
@@ -139,15 +148,49 @@ int main(int argc, char *argv[])
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
+            if (pimple.firstIter() || moveMeshOuterCorrectors)
+            {
+                // Do any mesh changes
+                mesh.controlledUpdate();
+
+                if (mesh.changing())
+                {
+                    MRF.update();
+
+                    if (correctPhi)
+                    {
+                        // Calculate absolute flux
+                        // from the mapped surface velocity
+                        phi = mesh.Sf() & Uf;
+                        phia = mesh.Sf() & Ufa;
+                        phib = mesh.Sf() & Ufb;
+
+//                        #include "correctPhi.H"
+
+                        // Make the flux relative to the mesh motion
+                        fvc::makeRelative(phi, U);
+                        fvc::makeRelative(phia, Ua);
+                        fvc::makeRelative(phib, Ub);
+                    }
+
+                    //if (checkMeshCourantNo)
+                    //{
+                    //    #include "meshCourantNo.H"
+                    //}
+                }
+            }
+
 //          Solve for solid phase mass conservation
             #include "alphaEqn.H"
 
 //          Compute lift and drag coefficients
             #include "liftDragCoeffs.H"
+            MRF.makeAbsolute(phia);
 
 //          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
 //             from Kinetic Theory of granular flows or mu(I) rheology
             #include "callGranularStress.H"
+            MRF.makeRelative(phia);
 
 //          Assemble the momentum balance equations for both phases a and b
             #include "UEqns.H"
