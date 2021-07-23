@@ -81,8 +81,6 @@ License
         volVectorField HbbyA(Ub);
         HbbyA = rUbA*UbEqn.H();
 
-
-
 //if (massFluxInterpolation)
 //{
 //    #include "interpolatedFaces.H"
@@ -196,15 +194,17 @@ License
         localMin<scalar>(mesh).interpolate(cellMask.oldTime())
     );
 
-        surfaceScalarField phiUa(
+        surfaceScalarField phiUa
         (
-            (fvc::interpolate(HabyA) & mesh.Sf())) + faceMaskOld*((rUaAf*fvc::ddtCorr(Ua, Ufa))
-        ));
+            (fvc::interpolate(HabyA) & mesh.Sf())
+           + faceMaskOld*rUaAf*fvc::ddtCorr(Ua, Ufa)
+        );
 
-        surfaceScalarField phiUb(
+        surfaceScalarField phiUb
         (
-            (fvc::interpolate(HbbyA) & mesh.Sf())) + faceMaskOld*((rUbAf*fvc::ddtCorr(Ub, Ufb))
-        ));
+           (fvc::interpolate(HbbyA) & mesh.Sf())
+          + faceMaskOld*rUbAf*fvc::ddtCorr(Ub, Ufb)
+        );
 
         surfaceScalarField phiaHbyA(phiUa + phiDraga);
         surfaceScalarField phibHbyA(phiUb + phiDragb);
@@ -214,18 +214,17 @@ License
         surfaceScalarField rAUKdb(fvc::interpolate(alpha/rhob*K*rUbA));
         // Compute predicted velocity fluxes at cell faces including
         //       including semi-implicit drag contribution
-	MRF.makeRelative(phiaHbyA);
-	MRF.makeRelative(phibHbyA);
+        MRF.makeRelative(phiaHbyA);
+        MRF.makeRelative(phibHbyA);
         surfaceScalarField phiHbyA
         (
             alphaf*(phiaHbyA + faceMask*rAUKda*phib)
           + betaf*(phibHbyA + faceMask*rAUKdb*phia)
         );
 
-//	MRF.makeRelative(phiHbyA);
-//	 adjustPhi(phiHbyA, U, p_rbgh);
-
-    //    surfaceScalarField phiHbyA = alphaf*phiaHbyA + betaf*phibHbyA;
+    //MRF.makeRelative(phiHbyA);
+    //adjustPhi(phiHbyA, U, p_rbgh);
+    //surfaceScalarField phiHbyA = alphaf*phiaHbyA + betaf*phibHbyA;
 
     //    adjustPhi(phiHbyA, U, p_rbgh);
 
@@ -346,9 +345,9 @@ License
     fvc::makeRelative(phia, Ua);
     fvc::makeRelative(phib, Ub);
 
-phia *= faceMask;
-phib *= faceMask;
-phi = alphaf*phia + betaf*phib;
+    phia *= faceMask;
+    phib *= faceMask;
+    phi = alphaf*phia + betaf*phib;
 
             }
         }

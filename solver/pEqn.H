@@ -193,14 +193,15 @@ License
         //      (account for time evolution)
         surfaceScalarField phiUa
         (
-            //(fvc::interpolate(HabyA) & mesh.Sf()) + MRF.zeroFilter(rUaAf*fvc::ddtCorr(Ua, phia))
+            //(fvc::interpolate(HabyA) & mesh.Sf())
+            //+ MRF.zeroFilter(rUaAf*fvc::ddtCorr(Ua, phia))
             (fvc::flux(HabyA)) + MRF.zeroFilter(rUaAf*fvc::ddtCorr(Ua, Ufa))
         );
 
         surfaceScalarField phiUb
         (
-            //(fvc::interpolate(HbbyA) & mesh.Sf()) + MRF.zeroFilter(rUbAf*fvc::ddtCorr(Ub, phib))
-            //(fvc::flux(HbbyA)) + MRF.zeroFilter(rUbAf*fvc::ddtCorr(Ub, phib))
+            //(fvc::interpolate(HbbyA) & mesh.Sf())
+            //+ MRF.zeroFilter(rUbAf*fvc::ddtCorr(Ub, phib))
             (fvc::flux(HbbyA)) + MRF.zeroFilter(rUbAf*fvc::ddtCorr(Ub, Ufb))
         );
         // Compute predicted velocity fluxes at cell faces
@@ -208,8 +209,8 @@ License
         surfaceScalarField phiaHbyA(phiUa + phiDraga);
         surfaceScalarField phibHbyA(phiUb + phiDragb);
 
-	MRF.makeRelative(phiaHbyA);
-	MRF.makeRelative(phibHbyA);
+        MRF.makeRelative(phiaHbyA);
+        MRF.makeRelative(phibHbyA);
 
         // Face-drag coefficients
         surfaceScalarField rAUKda(fvc::interpolate(beta/rhoa*K*rUaA));
@@ -336,21 +337,21 @@ License
                 U.correctBoundaryConditions();
             }
         }
-		// Correct Uf if the mesh is moving
-{
-    Uf = fvc::interpolate(U);
-    Ufa = fvc::interpolate(Ua);
-    Ufb = fvc::interpolate(Ub);
-    surfaceVectorField n(mesh.Sf()/mesh.magSf());
-    Uf += n*(phi/mesh.magSf() - (n & Uf));
-    Ufa += n*(phia/mesh.magSf() - (n & Ufa));
-    Ufb += n*(phib/mesh.magSf() - (n & Ufb));
-}
+        // Correct Uf if the mesh is moving
+        {
+            Uf = fvc::interpolate(U);
+            Ufa = fvc::interpolate(Ua);
+            Ufb = fvc::interpolate(Ub);
+            surfaceVectorField n(mesh.Sf()/mesh.magSf());
+            Uf += n*(phi/mesh.magSf() - (n & Uf));
+            Ufa += n*(phia/mesh.magSf() - (n & Ufa));
+            Ufb += n*(phib/mesh.magSf() - (n & Ufb));
+        }
 
 
-		// Make the fluxes relative to the mesh motion
-		fvc::makeRelative(phi, U);
-		fvc::makeRelative(phia, Ua);
-		fvc::makeRelative(phib, Ub);
+        // Make the fluxes relative to the mesh motion
+        fvc::makeRelative(phi, U);
+        fvc::makeRelative(phia, Ua);
+        fvc::makeRelative(phib, Ub);
     }
 }

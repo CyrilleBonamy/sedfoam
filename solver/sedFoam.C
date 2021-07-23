@@ -147,8 +147,7 @@ int main(int argc, char *argv[])
 //      Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
-	
-	    if (pimple.firstIter() || moveMeshOuterCorrectors)
+            if (pimple.firstIter() || moveMeshOuterCorrectors)
             {
                 // Do any mesh changes
                 mesh.controlledUpdate();
@@ -185,12 +184,12 @@ int main(int argc, char *argv[])
 
 //          Compute lift and drag coefficients
             #include "liftDragCoeffs.H"
-  MRF.makeAbsolute(phia);
+            MRF.makeAbsolute(phia);
 
 //          Compute the granular stress: pff, nuFra, nuEffa and lambdaUa
 //             from Kinetic Theory of granular flows or mu(I) rheology
             #include "callGranularStress.H"
-  MRF.makeRelative(phia);
+            MRF.makeRelative(phia);
 
 //          Assemble the momentum balance equations for both phases a and b
             #include "UEqns.H"
