@@ -67,7 +67,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 # Copy a script that we will use to correct permissions after running certain commands
-COPY ./docker/docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
+COPY ./docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
@@ -173,7 +173,7 @@ EXPOSE 8888
 
 # Copy local files as late as possible to avoid cache busting
 COPY ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/
-COPY ./docker/docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
+COPY ./docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
