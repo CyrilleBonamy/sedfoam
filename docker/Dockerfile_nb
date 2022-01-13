@@ -183,10 +183,9 @@ RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker
 USER root
 RUN fix-permissions /etc/jupyter/
 
-
+USER $NB_UID
 WORKDIR /home/sudofoam
 ENV HOME /home/sudofoam
-#ENTRYPOINT ["/bin/bash", "-c"]
-ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start-notebook.sh"]
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["source /openfoam/bash.rc && jupyter notebook"]
 
