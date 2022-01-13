@@ -66,8 +66,12 @@ ENV CONDA_DIR=/opt/conda \
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
+WORKDIR /root/
+RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
+
 # Copy a script that we will use to correct permissions after running certain commands
-COPY ./docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
+RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions"
+#COPY ./docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
@@ -87,9 +91,6 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     chmod g+w /etc/passwd && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
-
-WORKDIR /root/
-RUN git clone --recurse-submodules https://github.com/sedfoam/sedfoam.git
 
 WORKDIR /root
 RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
@@ -171,9 +172,12 @@ EXPOSE 8888
 ###ENTRYPOINT ["tini", "-g", "--"]
 ###CMD ["start-notebook.sh"]
 
+WORKDIR /root/sedfoam/docker/
 # Copy local files as late as possible to avoid cache busting
-COPY ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/
-COPY ./docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
+#COPY ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/
+RUN /bin/bash -c "cp ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
+RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/"
+#COPY ./docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
