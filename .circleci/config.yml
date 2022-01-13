@@ -115,6 +115,64 @@ jobs:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
 
+  builddock_nb:
+    working_directory: /app
+    docker:
+      - image: docker:20.10-dind
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
+          no_output_timeout: 30m
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=app -t cbonamy/sedfoam_2106_notebook:latest -f docker/Dockerfile_nb docker
+          no_output_timeout: 4h
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar cbonamy/sedfoam_2106_notebook:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - persist_to_workspace:
+          root: /caches
+          paths:
+            - app.tar
+
+  publishdock_nb:
+    # Use docker-publisher from above as the Docker container to run this job in
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      # Set up a separate Docker environment to run `docker` commands in
+      - setup_remote_docker
+
+      # Load and un-archive the Docker image
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load Docker image
+          command: docker load --input /tmp/workspace/app.tar
+
+      # Log in to Docker Hub and push the image
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
+            docker push cbonamy/sedfoam_2106_nb:latest
   builddock:
     working_directory: /app
     docker:
@@ -357,6 +415,10 @@ workflows:
     jobs:
       - checkstyle
       - build
+      - builddock_nb
+      - publishdock_nb:
+          requires:
+            - builddock_nb
       - test:
           requires:
             - build
