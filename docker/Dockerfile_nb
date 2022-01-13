@@ -1,4 +1,4 @@
-FROM opencfd/openfoam2106-default
+FROM cbonamy/sedfoam_v2106_ubuntu
 LABEL maintainer "cyrille.bonamy@univ-grenoble-alpes.fr"
 ARG WM_NCOMPPROCS=10
 
@@ -27,7 +27,6 @@ ARG conda_version="4.9.2"
 # features (e.g., download as all possible file formats)
 ENV DEBIAN_FRONTEND noninteractive
 
-
 RUN update-ca-certificates && apt-get update \
   && apt-get install --no-install-recommends -y \
   git unzip mercurial libreadline-dev vim nano emacs neovim \
@@ -47,9 +46,6 @@ RUN update-ca-certificates && apt-get update \
     unzip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-# RUN pip3 install --no-cache-dir fluidfoam pandas matplotlib odfpy
-
-
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -67,11 +63,11 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 WORKDIR /root/
+RUN rm -rf sedfoam
 RUN git clone --branch dev_notebook_dock --recurse-submodules https://github.com/CyrilleBonamy/sedfoam.git
 
 # Copy a script that we will use to correct permissions after running certain commands
 RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions"
-#COPY ./docker-stacks/base-notebook/fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
@@ -91,20 +87,11 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     fix-permissions $HOME && \
     fix-permissions $CONDA_DIR
 
-WORKDIR /root
-RUN /bin/bash -c "hg clone http://hg.code.sf.net/p/openfoam-extend/swak4Foam -r vcompile/p2106 && cp sedfoam/docker/Allwmakeswak swak4Foam/Libraries/Allwmake"
-
-WORKDIR /root/swak4Foam
-RUN /bin/bash -c "shopt -s expand_aliases && ./maintainanceScripts/compileRequirements.sh"
-
-WORKDIR /root/swak4Foam
-RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && export FOAM_USER_APPBIN=$FOAM_SITE_APPBIN && ./Allwmake -j'
-
 WORKDIR /root/sedfoam
 RUN /bin/bash -c 'shopt -s expand_aliases && source /openfoam/bash.rc && export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group'
 
 WORKDIR /home/sudofoam
-RUN rm -rf swak4Foam sedfoam
+RUN rm -rf sedfoam .cache
 
 USER 1000
 ARG PYTHON_VERSION=default
@@ -127,10 +114,6 @@ RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py38_${MINICONDA
     # conda config --system --prepend channels conda-forge && \
     conda config --system --set auto_update_conda false && \
     conda config --system --set show_channel_urls true && \
-    # conda config --system --set channel_priority strict && \
-    # FIDLE : dont install and pin python, use fidle one
-    # if [ ! $PYTHON_VERSION = 'default' ]; then conda install --yes python=$PYTHON_VERSION; fi && \
-    # conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned && \
     conda install --quiet --yes \
     "conda=${CONDA_VERSION}" \
     'pip' \
@@ -142,42 +125,15 @@ RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py38_${MINICONDA
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-# Install Jupyter Notebook, Lab, and Hub
-# Generate a notebook server config
-# Cleanup temporary files
-# Correct permissions
-# Do all this in a single RUN command to avoid duplicating all of the
-# files across image layers when the permissions change
-# FIDLE: copy env from fidle
-#COPY ./fidle_environment_linux.txt /tmp
-# FIDLE: update env with environment.yml
-#RUN conda install --name base --file fidle_environment_linux.txt && \
 RUN conda install --quiet --yes -n base jupyter pandas  matplotlib && \
     conda clean --all -f -y && \
     pip install fluidfoam odfpy
-# FIDLE : install jupyterhub via pip
-#    pip install --quiet --no-cache-dir jupyterhub nbgitpuller && \
-# FIDLE : manual chp install from npm
-#    npm install configurable-http-proxy && \
-#    npm cache clean --force && \
-#    jupyter notebook --generate-config && \
-#    rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
-#    rm -rf /home/$NB_USER/.cache/yarn && \
-#    fix-permissions $CONDA_DIR && \
-#    fix-permissions /home/$NB_USER
 
 EXPOSE 8888
 
-# Configure container startup
-###ENTRYPOINT ["tini", "-g", "--"]
-###CMD ["start-notebook.sh"]
-
 WORKDIR /root/sedfoam/docker/
-# Copy local files as late as possible to avoid cache busting
-#COPY ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/
 RUN /bin/bash -c "sudo cp ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
 RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/"
-#COPY ./docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
