@@ -439,7 +439,9 @@ workflows:
       - publishdock:
           requires:
             - builddock
-      - builddock_nb
+      - builddock_nb:
+          requires:
+            - publishdock
       - publishdock_nb:
           requires:
             - builddock_nb
@@ -484,7 +486,9 @@ workflows:
       - publishdock:
           requires:
             - builddock
-      - builddock_nb
+      - builddock_nb:
+          requires:
+            - publishdock
       - publishdock_nb:
           requires:
             - builddock_nb
