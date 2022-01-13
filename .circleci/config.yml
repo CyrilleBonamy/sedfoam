@@ -119,6 +119,7 @@ jobs:
     working_directory: /app
     docker:
       - image: docker:20.10-dind
+    resource_class: xlarge
     steps:
       - checkout
       - setup_remote_docker
@@ -151,6 +152,7 @@ jobs:
           root: /caches
           paths:
             - app.tar
+          no_output_timeout: 4h
 
   publishdock_nb:
     # Use docker-publisher from above as the Docker container to run this job in
