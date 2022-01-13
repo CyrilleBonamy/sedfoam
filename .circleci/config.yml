@@ -417,10 +417,6 @@ workflows:
     jobs:
       - checkstyle
       - build
-      - builddock_nb
-      - publishdock_nb:
-          requires:
-            - builddock_nb
       - test:
           requires:
             - build
@@ -443,6 +439,12 @@ workflows:
       - publishdock:
           requires:
             - builddock
+      - builddock_nb:
+          requires:
+            - publishdock
+      - publishdock_nb:
+          requires:
+            - builddock_nb
       - docs-build
       - docs-deploy:
           requires:
@@ -484,6 +486,12 @@ workflows:
       - publishdock:
           requires:
             - builddock
+      - builddock_nb:
+          requires:
+            - publishdock
+      - publishdock_nb:
+          requires:
+            - builddock_nb
       - docs-build
       - docs-deploy:
           requires:
