@@ -172,7 +172,7 @@ jobs:
           name: Publish Docker image
           command: |
             echo "${DOCKERHUB_PASS}" | docker login --username "${DOCKERHUB_USERNAME}" --password-stdin
-            docker push cbonamy/sedfoam_2106_nb:latest
+            docker push cbonamy/sedfoam_2106_notebook:latest
   builddock:
     working_directory: /app
     docker:

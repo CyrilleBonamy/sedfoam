@@ -152,8 +152,9 @@ RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py38_${MINICONDA
 #COPY ./fidle_environment_linux.txt /tmp
 # FIDLE: update env with environment.yml
 #RUN conda install --name base --file fidle_environment_linux.txt && \
-#RUN conda install --quiet --yes -n base \
-#    conda clean --all -f -y && \
+RUN conda install --quiet --yes -n base jupyter pandas  matplotlib && \
+    conda clean --all -f -y && \
+    pip install fluidfoam odfpy
 # FIDLE : install jupyterhub via pip
 #    pip install --quiet --no-cache-dir jupyterhub nbgitpuller && \
 # FIDLE : manual chp install from npm
@@ -174,8 +175,8 @@ EXPOSE 8888
 WORKDIR /root/sedfoam/docker/
 # Copy local files as late as possible to avoid cache busting
 #COPY ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/
-RUN /bin/bash -c "cp ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
-RUN /bin/bash -c "cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/"
+RUN /bin/bash -c "sudo cp ./docker-stacks/base-notebook/start.sh ./docker-stacks/base-notebook/start-notebook.sh ./docker-stacks/base-notebook/start-singleuser.sh /usr/local/bin/"
+RUN /bin/bash -c "sudo mkdir /etc/jupyter && sudo cp /root/sedfoam/docker/docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/"
 #COPY ./docker-stacks/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
@@ -185,5 +186,7 @@ RUN fix-permissions /etc/jupyter/
 
 WORKDIR /home/sudofoam
 ENV HOME /home/sudofoam
-ENTRYPOINT ["/bin/bash", "-c"]
+#ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["start-notebook.sh"]
 
