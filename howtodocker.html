@@ -104,8 +104,7 @@
 </pre><p>Please adapt the directories to your configuration. In this example, &quot;c:/mydataspace&quot; will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.</p></li></ul></section><section id="linux"><h4><a href="#linux">On linux with GUI (graphical interface without paraview):</a></h4><pre>    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority --name &quot;sedfoam_2406&quot; --workdir=&quot;/home/sudofoam&quot; -v=&quot;/home/users/toto&quot;:/home/sudofoam/workingDir &quot;cbonamy/sedfoam_2406_ubuntu&quot; /bin/bash
 </pre><p>Please adapt the directories to your configuration. In this example, &quot;/home/users/toto&quot; will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.</p></section></section><section id="start"><h3><a href="#start">Start a container (if existing and not running):</a></h3><pre>    docker container start sedfoam_2406
 </pre></section><section id="attach"><h3><a href="#attach">Attach to a running container (if existing and running):</a></h3><pre>    docker container attach sedfoam_2406
-</pre><p>Now hack and enjoy!\ The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here: /openfoam/bash.rc\ And if you need python with fluidfoam installed, don&#x27;t hesitate to use the preconfigured python environment:</p><pre>    source /home/sudofoam/pyenv/bin/activate
-</pre></section></section>
+</pre><p>Now hack and enjoy!\ The sedFoam files will be in /home/sudofoam and the solver is already compiled. Note that the bashrc file from openfoam is here: /openfoam/bash.rc and the python environment here: /home/sudofoam/pyenv\</p></section></section>
       </div>
     </div>
   </div>
