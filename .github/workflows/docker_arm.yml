@@ -1,0 +1,25 @@
+name: generate_docker_arm
+on:
+  push:
+    branches: ['develop']
+defaults:
+  run:
+    shell: bash
+jobs:
+
+  build:
+    runs-on: ubuntu-24.04-arm
+    container: opencfd/openfoam-dev:2406
+    steps:
+      - name: install git
+        run: |
+          apt-get update && apt-get install -y git
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Build sedfoam
+        run: |
+          shopt -s expand_aliases && source /openfoam/bash.rc &&
+          export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
+      
