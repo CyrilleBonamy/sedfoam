@@ -1,7 +1,7 @@
 name: generate_docker_arm
 on:
   push:
-    branches: ['develop']
+    branches: ['develop', 'develop-docker-arm']
 defaults:
   run:
     shell: bash
