@@ -297,9 +297,12 @@ sub printEdges
 
 sub printPatches
 {
-    print "patches\n";
+    print "boundary\n";
     print "(\n";
-    print "    wall cylinder\n";
+    print "    cylinder\n";
+    print "    {\n";
+    print "    type wall;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (32 36 37 33)\n";
     print "        (33 37 39 35)\n";
@@ -313,9 +316,13 @@ sub printPatches
     print "        (65 57 59 67)\n";
     print "        (67 59 58 66)\n";
     print "        (66 58 56 64)\n";
-    print "    )\n\n";
+    print "    );\n\n";
+    print "    }\n";
 
-    print "    patch inlet\n";
+    print "    inlet\n";
+    print "    {\n";
+    print "    type patch;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (4 20 16 0)\n";
     print "        (8 24 20 4)\n";
@@ -323,9 +330,13 @@ sub printPatches
     print "        (44 4 0 40)\n";
     print "        (48 8 4 44)\n";
     print "        (52 12 8 48)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
-    print "    patch outlet\n";
+    print "    outlet\n";
+    print "    {\n";
+    print "    type patch;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (3 19 23 7)\n";
     print "        (7 23 27 11)\n";
@@ -333,10 +344,14 @@ sub printPatches
     #print "        (43 3 7 47)\n";
     #print "        (47 7 11 51)\n";
     #print "        (51 11 15 55)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
 
-    print "    wall outletb\n";
+    print "    outletb\n";
+    print "    {\n";
+    print "    type wall;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (43 3 7 47)\n";
     print "        (47 7 11 51)\n";
@@ -344,19 +359,28 @@ sub printPatches
     #print "        (19 55 51 23)\n";
     #print "        (23 51 47 27)\n";
     #print "        (27 47 43 31)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
 
-    print "    wall pit\n";
+    print "    pit\n";
+    print "    {\n";
+    print "    type wall;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (45 46 61 60)\n";
     print "        (62 63 50 49)\n";
     print "        (61 46 50 63)\n";
     print "        (62 49 45 60)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
 
-    print "    patch lateral\n";
+    print "    lateral\n";
+    print "    {\n";
+    print "    type cyclic;\n";
+    print "    neighbourPatch symplane;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (16 17 1 0)\n";
     print "        (17 18 2 1)\n";
@@ -364,9 +388,14 @@ sub printPatches
     print "        (0 1 41 40)\n";
     print "        (1 2 42 41)\n";
     print "        (2 3 43 42)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
-    print "    patch symplane\n";
+    print "    symplane\n";
+    print "    {\n";
+    print "    type cyclic;\n";
+    print "    neighbourPatch lateral;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (12 13 29 28)\n";
     print "        (13 14 30 29)\n";
@@ -374,9 +403,13 @@ sub printPatches
     print "        (52 53 13 12)\n";
     print "        (53 54 14 13)\n";
     print "        (54 55 15 14)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
-    print "    wall bottom\n";
+    print "    bottom\n";
+    print "    {\n";
+    print "    type wall;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (40 41 45 44)\n";
     print "        (41 42 46 45)\n";
@@ -394,9 +427,13 @@ sub printPatches
     print "        (61 63 67 65)\n";
     print "        (66 67 63 62)\n";
     print "        (60 64 66 62)\n";
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
 
-    print "    patch surface\n";
+    print "    surface\n";
+    print "    {\n";
+    print "    type patch;\n";
+    print "    faces\n";
     print "    (\n";
     print "        (20 21 17 16)\n";
     print "        (21 22 18 17)\n";
@@ -411,7 +448,8 @@ sub printPatches
     print "        (25 26 39 38)\n";
     print "        (25 38 36 21)\n";
 
-    print "    )\n";
+    print "    );\n";
+    print "    }\n";
     print ");\n\n";
 }
 
