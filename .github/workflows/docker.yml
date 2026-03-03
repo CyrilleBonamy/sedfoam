@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, ubuntu-24.04-arm]
-    container: opencfd/openfoam-dev:2506
+    container: opencfd/openfoam-dev:2512
     steps:
       - name: install git
         run: |
@@ -30,7 +30,7 @@ jobs:
   docker:
     runs-on: ${{ matrix.os }}  
     env:
-      REGISTRY_IMAGE: cbonamy/openfoam_2506_ubuntu
+      REGISTRY_IMAGE: cbonamy/openfoam_2512_ubuntu
     #needs: build
     strategy:
       fail-fast: false
@@ -94,7 +94,7 @@ jobs:
   merge:
     runs-on: ubuntu-24.04
     env:
-      REGISTRY_IMAGE: cbonamy/openfoam_2506_ubuntu
+      REGISTRY_IMAGE: cbonamy/openfoam_2512_ubuntu
     needs:
       - docker
     steps:
@@ -141,7 +141,7 @@ jobs:
           - platform: linux/arm64
             os: ubuntu-24.04-arm
     env:
-      REGISTRY_IMAGE: cbonamy/sedfoam_2506_ubuntu
+      REGISTRY_IMAGE: cbonamy/sedfoam_2512_ubuntu
     needs: merge
     steps:
       - name: Checkout repository
@@ -196,7 +196,7 @@ jobs:
   merge-2:
     runs-on: ubuntu-24.04
     env:
-      REGISTRY_IMAGE: cbonamy/sedfoam_2506_ubuntu
+      REGISTRY_IMAGE: cbonamy/sedfoam_2512_ubuntu
     needs:
       - docker-2
     steps:
@@ -244,7 +244,7 @@ jobs:
           - platform: linux/arm64
             os: ubuntu-24.04-arm
     env:
-      REGISTRY_IMAGE: cbonamy/sedfoam_2506_notebook
+      REGISTRY_IMAGE: cbonamy/sedfoam_2512_notebook
     needs: merge-2
     steps:
       - name: Checkout repository
@@ -298,7 +298,7 @@ jobs:
   merge-nb:
     runs-on: ubuntu-24.04
     env:
-      REGISTRY_IMAGE: cbonamy/sedfoam_2506_notebook
+      REGISTRY_IMAGE: cbonamy/sedfoam_2512_notebook
     needs:
       - docker-nb
     steps:

@@ -6,7 +6,7 @@ import fluidfoam
 
 
 def rms(y, x):
-    u = np.trapz(y**2, x)
+    u = np.trapezoid(y**2, x)
     return np.sqrt(u / np.abs(x[-1]-x[0]))
 
 
@@ -39,7 +39,7 @@ wallShear = np.max(Tauf[3, :]) / rhof
 
 H = np.max(z)
 Umax = np.max(U)
-Um = np.trapz(u, z) / H
+Um = np.trapezoid(u, z) / H
 
 print(" Reb=", Um * H / nu, " Um=", Um, " m/s")
 utau = np.sqrt(np.max(np.abs(wallShear)))
