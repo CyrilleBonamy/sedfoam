@@ -83,10 +83,14 @@ MuIPPressure::alphaEq
 ) const
 
 {
+    volScalarField paSafe
+    (
+        max(pa, dimensionedScalar("paMin", pa.dimensions(), SMALL))
+    );
+
     return alphaMax
     /(
-        1 + Bphi*da*magD
-       *pow(max(pa, dimensionedScalar("paMin", pa.dimensions(), SMALL))/rhoa, -0.5)
+        1 + Bphi*da*magD*pow(paSafe/rhoa, -0.5)
     );
 }
 
