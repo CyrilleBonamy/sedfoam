@@ -31,7 +31,9 @@ jobs:
     runs-on: ${{ matrix.os }}  
     env:
       REGISTRY_IMAGE: cbonamy/openfoam_2512_ubuntu
-    #needs: build
+    # 'needs: build' is intentionally omitted: this job only builds the base
+    # OpenFOAM image from docker/Dockerfile_fordev and does not consume the
+    # 'sedfoam-binary' artifact produced by the 'build' job
     strategy:
       fail-fast: false
       matrix:

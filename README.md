@@ -3,6 +3,7 @@ sedfoam
 
 [![Release](https://img.shields.io/badge/release-2512-blue.svg)](http://github.com/SedFoam/sedfoam)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b9ad60ec6171496290c336697426cd48)](https://www.codacy.com/gh/SedFoam/sedfoam/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SedFoam/sedfoam&amp;utm_campaign=Badge_Grade)
+[![OpenFOAM v25xx](https://img.shields.io/badge/OpenFOAM-v25xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v24xx](https://img.shields.io/badge/OpenFOAM-v24xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v23xx](https://img.shields.io/badge/OpenFOAM-v23xx-brightgreen.svg)](https://openfoam.com/)
 [![OpenFOAM v22xx](https://img.shields.io/badge/OpenFOAM-v22xx-brightgreen.svg)](https://openfoam.com/)
@@ -17,13 +18,14 @@ This repository provides the SedFoam solver.
 Status
 ------
 
-The sedfoam solver is in development and is not yet fully functional.
+The sedfoam solver is actively maintained and released for each supported OpenFOAM version (currently v2512).
 
 Pull requests are encouraged!
 
 Features
 --------
-A three-dimensional two-phase flow solver, SedFoam, has been developed for sediment transport applications. The solver is extended from twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD (computational fluid dynamics) toolbox OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different intergranular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology μ(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport: a simple mixing length model (one-dimensional configuration only), a k − ε, a classical k − ω and a k − ω from Wilcox (2006).
+A three-dimensional two-phase flow solver, SedFoam, has been developed for sediment transport applications. The solver is extended from twoPhaseEulerFoam available in the 2.1.0 release of the open-source CFD (computational fluid dynamics) toolbox OpenFOAM. In this approach the sediment phase is modeled as a continuum, and constitutive laws have to be prescribed for the sediment stresses. In the proposed solver, two different intergranular stress models are implemented: the kinetic theory of granular flows and the dense granular flow rheology μ(I). For the fluid stress, laminar or turbulent flow regimes can be simulated and three different turbulence models are available for sediment transport
+: a simple mixing length model (one-dimensional configuration only), a k − ε, a classical k − ω and a k − ω from Wilcox (2006).
 
 Installation
 ------------
