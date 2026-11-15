@@ -84,6 +84,10 @@ MuIvPPressure::alphaEq
 ) const
 
 {
-    return alphaMax/(1+Bphi*sqrt(rhob*nub*magD/pa));
+    return alphaMax
+    /(
+        1 + Bphi*sqrt(rhob*nub*magD
+       /max(pa, dimensionedScalar("paMin", pa.dimensions(), SMALL)))
+    );
 }
 // ************************************************************************* //

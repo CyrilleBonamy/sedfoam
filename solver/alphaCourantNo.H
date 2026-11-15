@@ -41,7 +41,7 @@ if (mesh.nInternalFaces())
 {
     scalarField sumPhi
     (
-       fvc::surfaceSum(mag(phi))().internalField()
+       fvc::surfaceSum(mag(phia))().internalField()
     );
 
     alphaCoNum = 0.5*gMax(sumPhi/mesh.V().field())*runTime.deltaTValue();

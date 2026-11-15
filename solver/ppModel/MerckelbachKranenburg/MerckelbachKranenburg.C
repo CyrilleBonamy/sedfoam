@@ -69,6 +69,13 @@ Foam::tmp<Foam::volScalarField> Foam::MerckelbachKranenburg::pff
     const dimensionedScalar& eta1
 ) const
 {
+    if (eta0.value() >= 3.0 - SMALL)
+    {
+        FatalErrorInFunction
+            << "ppModel " << type() << " requires eta0 < 3"
+            << " (got eta0 = " << eta0.value() << ")"
+            << exit(FatalError);
+    }
     scalar N = 2/(3-eta0.value());
     return Fr*pow(alpha_, N);
 }

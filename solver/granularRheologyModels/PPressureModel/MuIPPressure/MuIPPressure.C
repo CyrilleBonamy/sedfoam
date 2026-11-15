@@ -83,7 +83,11 @@ MuIPPressure::alphaEq
 ) const
 
 {
-    return alphaMax/(1+Bphi*da*magD*pow(pa/rhoa, -0.5));
+    return alphaMax
+    /(
+        1 + Bphi*da*magD
+       *pow(max(pa, dimensionedScalar("paMin", pa.dimensions(), SMALL))/rhoa, -0.5)
+    );
 }
 
 
