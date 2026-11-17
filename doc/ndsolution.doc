@@ -358,7 +358,7 @@ and you should see the following figure:
 
 \subsection nd_channel_les nd3DChannel560: Turbulent channel flow laden with particles
 
-The LES tutorial - *3DChannel560: Turbulent channel flow laden with particles* is found in the folder *sedFoamDirectory/tutorials/3DChannel560*. The following modifications need to be made in the tutorial input files in order to obtain a non-dimensional solution:
+The LES tutorial - *3DChannel560: Turbulent channel flow laden with particles* is found in the folder *sedFoamDirectory/tutorials/LES/3DChannel560*. The following modifications need to be made in the tutorial input files in order to obtain a non-dimensional solution:
 
 \paragraph meshgen_nd_channel_les Mesh generation
 
