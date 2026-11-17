@@ -20,14 +20,14 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y git
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
       - name: Build sedfoam
         run: |
           shopt -s expand_aliases && source /openfoam/bash.rc && 
           export FOAM_USER_LIBBIN=$FOAM_SITE_LIBBIN && ./Allwmake -prefix=group
-      - uses: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v7
         with:
           name: sedfoam-binary
           path: /usr/lib/openfoam/openfoam2512/site
@@ -49,10 +49,10 @@ jobs:
           source /home/sudofoam/pyenv/bin/activate &&
           pip3 install fluidfoam 
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/download-artifact@v4.1.8
+      - uses: actions/download-artifact@v8
         with:
           name: sedfoam-binary
           path: /usr/lib/openfoam/openfoam2512/site
@@ -92,10 +92,10 @@ jobs:
           source /home/sudofoam/pyenv/bin/activate &&
           pip3 install fluidfoam
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/download-artifact@v4.1.8
+      - uses: actions/download-artifact@v8
         with:
           name: sedfoam-binary
           path: /usr/lib/openfoam/openfoam2512/site
@@ -126,10 +126,10 @@ jobs:
           source /home/sudofoam/pyenv/bin/activate &&
           pip3 install fluidfoam
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/download-artifact@v4.1.8
+      - uses: actions/download-artifact@v8
         with:
           name: sedfoam-binary
           path: /usr/lib/openfoam/openfoam2512/site
@@ -166,10 +166,10 @@ jobs:
           source /home/sudofoam/pyenv/bin/activate &&
           pip3 install fluidfoam
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/download-artifact@v4.1.8
+      - uses: actions/download-artifact@v8
         with:
           name: sedfoam-binary
           path: /usr/lib/openfoam/openfoam2512/site
@@ -191,7 +191,7 @@ jobs:
         run: |
           sudo pip3 install pycodestyle
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
       - name: Python Style Checker
@@ -206,7 +206,7 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install vera++
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           submodules: recursive
       - name: Check style
