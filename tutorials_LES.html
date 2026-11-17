@@ -114,7 +114,7 @@
             </li>
           </ul>
         </nav>
-<p>In this chapter LES tutorials are presented to illustrate the full SedFoam capabilities to deal with Large Eddy Simulations as well as to provide configuration files to allow for the development of new configurations both in dimensional and dimensionless forms.</p><section id="FavreAverage_sec"><h2><a href="#FavreAverage_sec">3DChannel180: Favre average TKE budget of Turbulent channel flow at Retau = 180</a></h2><p>The Favre average turbulent kinetic energy (TKE) budget can be done during the simulation using the switch in the <em>controlDict</em> file inside <em>system</em> folder. The details are discuss in the coming sections.</p><section id="FavrePre-proces"><h3><a href="#FavrePre-proces">Pre-processing</a></h3><p>The tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/3DChanel180.</p></section><section id="Mesh-boudary"><h3><a href="#Mesh-boudary">Mesh and boundary conditions</a></h3><p>The numerical domain and boundary condition details are provided in <a href="tutorials_LES.html#channel_sec" class="m-doc">3DChannel560: Turbulent channel flow laden with particles</a>. The mesh consists of <svg class="m-math" style="width: 6.702em; height: 0.906em; vertical-align: -0.104em;" viewBox="0 -7.704442 64.34159 8.700714">
+<p>In this chapter LES tutorials are presented to illustrate the full SedFoam capabilities to deal with Large Eddy Simulations as well as to provide configuration files to allow for the development of new configurations both in dimensional and dimensionless forms.</p><section id="FavreAverage_sec"><h2><a href="#FavreAverage_sec">3DChannel180: Favre average TKE budget of Turbulent channel flow at Retau = 180</a></h2><p>The Favre average turbulent kinetic energy (TKE) budget can be done during the simulation using the switch in the <em>controlDict</em> file inside <em>system</em> folder. The details are discuss in the coming sections.</p><section id="FavrePre-proces"><h3><a href="#FavrePre-proces">Pre-processing</a></h3><p>The tutorial is distributed with sedFoam under the folder sedFoamDirectory/tutorials/LES/3DChannel180.</p></section><section id="Mesh-boudary"><h3><a href="#Mesh-boudary">Mesh and boundary conditions</a></h3><p>The numerical domain and boundary condition details are provided in <a href="tutorials_LES.html#channel_sec" class="m-doc">3DChannel560: Turbulent channel flow laden with particles</a>. The mesh consists of <svg class="m-math" style="width: 6.702em; height: 0.906em; vertical-align: -0.104em;" viewBox="0 -7.704442 64.34159 8.700714">
 <title>
 $ 32 \times 32 \times 32 $
 </title>
@@ -227,7 +227,7 @@ $ \nu_b = 1 / Re_\tau $
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;    // shape Factor to adjust settling velocity for non-spherical particles
     hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
 }
-// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
+// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * * * * * //
 phaseb
 {
     rho             rho [ 1 -3 0 0 0 ] 1;
@@ -236,16 +236,7 @@ phaseb
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;
     hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;
 }
-//*********************************************************************** //
-transportModel  Newtonian;
-
-nu              nu [ 0 2 -1 0 0 0 0 ] 3.6e-4; //1/Re_tau;
-
-nuMax           nuMax [0 2 -1 0 0 0 0] 1e2;      // viscosity limiter for the Frictional model (required for stability)
-
-alphaSmall      alphaSmall [ 0 0 0 0 0 0 0 ] 1e-6;  // minimum volume fraction (phase a) for division by alpha
-
-// ************************************************************************* //</pre></section><section id="FavreRun"><h3><a href="#FavreRun">Running the simulation</a></h3><p>All simulation-related parameters are specified in the controlDict file located inside the system folder. The switch for Favre-averaged turbulent kinetic energy is also found in the controlDict file. To enable Favre averaging, add the following line to the controlDict file as described in Section <a href="tutorials_LES.html#channel_sec" class="m-doc">3DChannel560: Turbulent channel flow laden with particles</a>. It is recommended to start by running a warm-up simulation for approximately 100 <svg class="m-math" style="width: 8.831em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 84.778178 11.955168">
+//*********************************************************************** //</pre></section><section id="FavreRun"><h3><a href="#FavreRun">Running the simulation</a></h3><p>All simulation-related parameters are specified in the controlDict file located inside the system folder. The switch for Favre-averaged turbulent kinetic energy is also found in the controlDict file. To enable Favre averaging, add the following line to the controlDict file as described in Section <a href="tutorials_LES.html#channel_sec" class="m-doc">3DChannel560: Turbulent channel flow laden with particles</a>. It is recommended to start by running a warm-up simulation for approximately 100 <svg class="m-math" style="width: 8.831em; height: 1.245em; vertical-align: -0.312em;" viewBox="0 -8.966376 84.778178 11.955168">
 <title>
 $ T_b = H / U_{bar} = 1 $
 </title>
@@ -304,7 +295,7 @@ $ 64^3 $
 <use x='5.85299' y='0' xlink:href='#eq9-g1-52'/>
 <use x='11.705981' y='-4.338437' xlink:href='#eq9-g0-51'/>
 </g>
-</svg> using sedFOAM and Direct Numerical Simulation (DNS) data (<a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext">R. D. Moser, J. Kim &amp; N. N. Mansour, (1998)</a>).</p><figure class="m-figure"><img src="tuto3DChannel180_FavreAverage.png" alt="Image" style="width: 700px;" /><figcaption>Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial.</figcaption></figure></section></section><section id="channel_sec"><h2><a href="#channel_sec">3DChannel560: Turbulent channel flow laden with particles</a></h2><p>In this tutorial, the particle-laden closed channel flow experimental configuration from Kiger and Pan (2002) is reproduced using Large-Eddy Simulation (LES).</p><section id="preprocChan"><h3><a href="#preprocChan">Pre-processing</a></h3><p>This tutorial is distributed with SedFoam under the folder <em>sedFoamDirectory/tutorials/3DChannel560</em>.</p></section><section id="meshgen_Chan"><h3><a href="#meshgen_Chan">Mesh and boundary conditions</a></h3><p>The numerical domain dimensions presented in figure 1. The numerical domain is a bi-periodic rectangular box with cyclic boundary conditions in <svg class="m-math" style="width: 0.693em; height: 0.536em; vertical-align: -0.000em;" viewBox="0 -5.147373 6.652087 5.147373">
+</svg> using sedFOAM and Direct Numerical Simulation (DNS) data (<a href="https://pubs.aip.org/aip/pof/article-abstract/11/4/943/253866/Direct-numerical-simulation-of-turbulent-channel?redirectedFrom=fulltext">R. D. Moser, J. Kim &amp; N. N. Mansour, (1998)</a>).</p><figure class="m-figure"><img src="tuto3DChannel180_FavreAverage.png" alt="Image" style="width: 700px;" /><figcaption>Figure 5: nondimensional velocity field, shear stress, turbulent kinetic energy (TKE), and loss and gain for 3DChannel180 tutorial.</figcaption></figure></section></section><section id="channel_sec"><h2><a href="#channel_sec">3DChannel560: Turbulent channel flow laden with particles</a></h2><p>In this tutorial, the particle-laden closed channel flow experimental configuration from Kiger and Pan (2002) is reproduced using Large-Eddy Simulation (LES).</p><section id="preprocChan"><h3><a href="#preprocChan">Pre-processing</a></h3><p>This tutorial is distributed with SedFoam under the folder <em>sedFoamDirectory/tutorials/LES/3DChannel560</em>.</p></section><section id="meshgen_Chan"><h3><a href="#meshgen_Chan">Mesh and boundary conditions</a></h3><p>The numerical domain dimensions presented in figure 1. The numerical domain is a bi-periodic rectangular box with cyclic boundary conditions in <svg class="m-math" style="width: 0.693em; height: 0.536em; vertical-align: -0.000em;" viewBox="0 -5.147373 6.652087 5.147373">
 <title>
 $x$
 </title>
@@ -417,7 +408,7 @@ $U_b=0.5096 \ m.s^{-1}$
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;    // shape Factor to adjust settling velocity for non-spherical particles
     hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
 }
-// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
+// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * * * * * //
 phaseb
 {
     rho             rho [ 1 -3 0 0 0 ] 1000;
@@ -487,7 +478,7 @@ runTimeModifiable true;
 maxAlphaCo  1;
 
 favreAveraging false;
-</pre></section><section id="lauch_Chan"><h3><a href="#lauch_Chan">Computation launching</a></h3><p>As for the previous case, you can launch the computation by executing <em>Allrun</em> for turbulence initialization. The simulations is run in parallel on 16 cores. Once the end time has been modified and favreAveraging keyword set to true, you can launch the computation of time average variables by executing <em>AllrunAverage</em>.</p></section><section id="post_Chan"><h3><a href="#post_Chan">Post-processing using python</a></h3><p>The post-processing python scripts <em>writedata_tuto3DChannel560.py</em> and <em>plot_tuto3DChannel560.py</em> are located in the folder <em>tutorials/Py</em>. To run this script, the latest output (16s) should be reconstructed.</p><p>The script <em>writedata_tuto3DChannel560.py</em> reads time averaged OpenFoam data, perform a spatial averaging operation and stores the 1D vertical profiles in a netCDF file located in the postProcessing directory of the case.</p><p>The script <em>plot_tuto3DChannel560.py</em> reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses</p><figure class="m-figure"><img src="tuto3DChannel560.png" alt="Image" style="width: 700px;" /><figcaption>Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial.</figcaption></figure></section></section><section id="OscillSheetFlow_sec"><h2><a href="#OscillSheetFlow_sec">3DOscillSheetFlow: Oscillatory sheet flow</a></h2><p>In this tutorial, the oscillatory sheet flow experimental configuration with fine sand from O&#x27;Donoghue and Wright (2004) is reproduced using Large-Eddy Simulation (LES).</p><section id="preprocOdo"><h3><a href="#preprocOdo">Pre-processing</a></h3><p>This tutorial is distributed with SedFoam under the folder <em>sedFoamDirectory/tutorials/3DOscillSheetFlow</em>.</p></section><section id="meshgen_Odo"><h3><a href="#meshgen_Odo">Mesh and boundary conditions</a></h3><p>The numerical domain is a periodic box presented in figure 3 with <svg class="m-math" style="width: 6.744em; height: 1.494em; vertical-align: -0.380em;" viewBox="0 -10.711001 64.74148 14.346348">
+</pre></section><section id="lauch_Chan"><h3><a href="#lauch_Chan">Computation launching</a></h3><p>As for the previous case, you can launch the computation by executing <em>Allrun</em> for turbulence initialization. The simulations is run in parallel on 16 cores. Once the end time has been modified and favreAveraging keyword set to true, you can launch the computation of time average variables by executing <em>AllrunAverage</em>.</p></section><section id="post_Chan"><h3><a href="#post_Chan">Post-processing using python</a></h3><p>The post-processing python scripts <em>writedata_tuto3DChannel560.py</em> and <em>plot_tuto3DChannel560.py</em> are located in the folder <em>tutorials/Py</em>. To run this script, the latest output (16s) should be reconstructed.</p><p>The script <em>writedata_tuto3DChannel560.py</em> reads time averaged OpenFoam data, perform a spatial averaging operation and stores the 1D vertical profiles in a netCDF file located in the postProcessing directory of the case.</p><p>The script <em>plot_tuto3DChannel560.py</em> reads the netCDF file and plots vertical profile of concentration, velocities and Reynolds stresses</p><figure class="m-figure"><img src="tuto3DChannel560.png" alt="Image" style="width: 700px;" /><figcaption>Figure 2: Concentration, velocity and Reynolds stress profiles for the 3DChannel560 tutorial.</figcaption></figure></section></section><section id="OscillSheetFlow_sec"><h2><a href="#OscillSheetFlow_sec">3DOscillSheetFlow: Oscillatory sheet flow</a></h2><p>In this tutorial, the oscillatory sheet flow experimental configuration with fine sand from O&#x27;Donoghue and Wright (2004) is reproduced using Large-Eddy Simulation (LES).</p><section id="preprocOdo"><h3><a href="#preprocOdo">Pre-processing</a></h3><p>This tutorial is distributed with SedFoam under the folder <em>sedFoamDirectory/tutorials/LES/3DOscillSheetFlow</em>.</p></section><section id="meshgen_Odo"><h3><a href="#meshgen_Odo">Mesh and boundary conditions</a></h3><p>The numerical domain is a periodic box presented in figure 3 with <svg class="m-math" style="width: 6.744em; height: 1.494em; vertical-align: -0.380em;" viewBox="0 -10.711001 64.74148 14.346348">
 <title>
 $\delta=\sqrt{2\nu^f/\omega}$
 </title>
@@ -564,7 +555,7 @@ $x$
     sF              sF   [ 0 0  0 0 0 0 0 ] 1;    // shape Factor to adjust settling velocity for non-spherical particles
     hExp            hExp [ 0 0  0 0 0 0 0 ] 2.65;  // hindrance exponent for drag: beta^(-hExp) (2.65 by default)
 }
-// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * //
+// * * * * * * * * * * * * fluid properties * * * * * * * * * * * * * * * * //
 phaseb
 {
     rho             rho [ 1 -3 0 0 0 ] 1000;
