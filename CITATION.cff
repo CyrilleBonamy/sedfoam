@@ -29,6 +29,6 @@ title: "sedfoam"
 doi: 10.5281/zenodo.836642
 url: "https://github.com/sedfoam/sedfoam"
 cff-version: "1.2.0"
-date-released: 2021-07-13
+date-released: 2026-11-17
 message: "If you use this software, please cite it as below."
-version: 2312
+version: 2512

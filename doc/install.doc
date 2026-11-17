@@ -14,20 +14,20 @@
 
 You need OpenFOAM to build the executable. SedFoam versions released after SedFoam-3.3 will be named accordingly to OpenFOAM ESI versions. Currently the latest version is SedFoam-2512. 
 <ul>
-<li>First go to the <a href="https://www.openfoam.com/download">download</a> page of the software
-<li><a href="https://www.openfoam.com/download/installation.php">Install OpenFOAM</a>.
+<li>First go to the <a href=\"https://www.openfoam.com/download\">download</a> page of the software
+<li><a href=\"https://www.openfoam.com/download/installation.php\">Install OpenFOAM</a>.
 </ul>
 
 To take full advantage of SedFoam the following additional tools should be installed.
 
 <ul>
-<li><a href="https://openfoamwiki.net/index.php/Contrib/swak4Foam">swak4Foam</A> extension combines many fonctionalities and is needed for the tutorials
+<li><a href=\"https://sourceforge.net/p/openfoam-extend/swak4Foam/\">swak4Foam</A> extension combines many fonctionalities and is needed for the tutorials
 <li>Python usually comes pre-installed in Linux. However, if not installed or if you need a specific version, you can install Python with the following command:
 
         sudo apt install python3
 
 <li>the python package
-    <a href="https://github.com/fluiddyn/fluidfoam">fluidfoam</A>
+    <a href=\"https://github.com/fluiddyn/fluidfoam\">fluidfoam</A>
     is needed for postprocessing of the tutorials.
 </ul>
 
@@ -36,12 +36,12 @@ Compilation is now done by performing the following steps:
 <ol>
 <li>Download the official SedFoam package:
 
-        git clone --recurse-submodules http://github.com/sedfoam/sedfoam
+        git clone --recurse-submodules https://github.com/sedfoam/sedfoam
 
 <li>Compile the program by running Allwmake:
 
         cd sedfoam
-        source $FOAM_ETC/bashrc # load the openfoam environment
+        source $WM_PROJECT_DIR/etc/bashrc # load the openfoam environment
         ./Allwmake
 
     The program should compile without problems and the binary
@@ -52,11 +52,11 @@ Compilation is now done by performing the following steps:
 
 \section use_docker Don't install sedFoam and use the latest sedFoam docker
 
-For this : go <a href="howtodocker.html">Here</a>.
+For this : go <a href=\"howtodocker.html\">Here</a>.
 
 \htmlonly
-Go to the <a href="howtodocker.html">next</a> section or return to the
- <a href="index.html">index</a>.
+Go to the <a href=\"howtodocker.html\">next</a> section or return to the
+ <a href=\"index.html\">index</a>.
 \endhtmlonly
 
 */
