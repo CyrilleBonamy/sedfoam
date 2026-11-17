@@ -55,14 +55,14 @@ encouraged to install and use Paraview on the host machine.
 On host:
 - initiate docker:
 \verbatim
-    docker run -p 8888:8888 --name \"sedfoam_2512_notebook\" -v=\"/Users/toto\":/home/sudofoam/workingDir \"cbonamy/sedfoam_2512_notebook:develop\"
+    docker run -p 8888:8888 --name "sedfoam_2512_notebook" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2512_notebook:develop"
 \endverbatim
 - use your web browser:
     - The previous command will give you a url like http://127.0.0.1:8888/?token=ae5f299fc77312f079793a9ca818d5973ed4df5a5a85b9fa
     - Just copy and paste the link into your web browser
 
-The  -v=\"/Users/toto\":/home/sudofoam/workingDir option is not mmandatory. It is used to mmount a shared space between host and jupyter notebook. 
-If you use this option, please adapt the directories to your configuration. In this example, \"/Users/toto\" will be mounted on the vm in /home/sudofoam/workingDir. 
+The  -v="/Users/toto":/home/sudofoam/workingDir option is not mmandatory. It is used to mmount a shared space between host and jupyter notebook.
+If you use this option, please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir.
 
 \subsubsection macOS On macOS with GUI (graphical interface without paraview):
 
@@ -70,17 +70,17 @@ On host:
 - configure xquartz
     - install xquartz to allow network connection
     - in Xquartz: Go to Preferences > Security
-    - and Check \"allow connections from network clients\"
+    - and Check "allow connections from network clients"
     - in a terminal: 
 \verbatim
-    IP=$(ifconfig en0 | grep inet | awk '$1==\"inet\" {print $2}')
+    IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
     xhost + $IP
 \endverbatim
 - initiate docker:
 \verbatim
-    docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name \"sedfoam_2512\" --workdir=\"/home/sudofoam\" -v=\"/Users/toto\":/home/sudofoam/workingDir \"cbonamy/sedfoam_2512_ubuntu:develop\" /bin/bash
+    docker run -it --net=host -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix --name "sedfoam_2512" --workdir="/home/sudofoam" -v="/Users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2512_ubuntu:develop" /bin/bash
 \endverbatim
-Please adapt the directories to your configuration. In this example, \"/Users/toto\" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+Please adapt the directories to your configuration. In this example, "/Users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
 \subsubsection windows On Windows with GUI (graphical interface without paraview):
 - configure Docker Engine for windows (with all system requirements: WSL2, step 1-5 from https://docs.microsoft.com/en-us/windows/wsl/install-win10)
@@ -91,16 +91,16 @@ Please adapt the directories to your configuration. In this example, \"/Users/to
 \endverbatim
 - initiate docker:
 \verbatim
-    docker run -it --net=host --env DISPLAY=$DISPLAY --name \"sedfoam_2512\" --workdir=\"/home/sudofoam\" -v=\"c:/mydataspace\":/home/sudofoam/workingDir \"cbonamy/sedfoam_2512_ubuntu:develop\" /bin/bash
+    docker run -it --net=host --env DISPLAY=$DISPLAY --name "sedfoam_2512" --workdir="/home/sudofoam" -v="c:/mydataspace":/home/sudofoam/workingDir "cbonamy/sedfoam_2512_ubuntu:develop" /bin/bash
 \endverbatim
-Please adapt the directories to your configuration. In this example, \"c:/mydataspace\" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+Please adapt the directories to your configuration. In this example, "c:/mydataspace" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
 \subsubsection linux On linux with GUI (graphical interface without paraview):
 
 \verbatim
-    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/home/sudofoam/.Xauthority --name \"sedfoam_2512\" --workdir=\"/home/sudofoam\" -v=\"/home/users/toto\":/home/sudofoam/workingDir \"cbonamy/sedfoam_2512_ubuntu:develop\" /bin/bash
+    docker run -it --net=host --env DISPLAY=$DISPLAY --volume $XAUTH:/home/sudofoam/.Xauthority --name "sedfoam_2512" --workdir="/home/sudofoam" -v="/home/users/toto":/home/sudofoam/workingDir "cbonamy/sedfoam_2512_ubuntu:develop" /bin/bash
 \endverbatim
-Please adapt the directories to your configuration. In this example, \"/home/users/toto\" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
+Please adapt the directories to your configuration. In this example, "/home/users/toto" will be mounted on the vm in /home/sudofoam/workingDir. If you change IP, for example when returning from work to home, change the Display variable (in the Docker) accordingly.
 
 \subsection start Start a container (if existing and not running):
 \verbatim
